@@ -1,6 +1,5 @@
 package tj.ebm.Commons.DtoAndEntityConverter;
 
-
 import java.util.Objects;
 
 import javax.persistence.EntityNotFoundException;

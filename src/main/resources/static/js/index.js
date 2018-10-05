@@ -56,7 +56,7 @@ $(document).ready(function () {
         }).done(function (json) {
 
             if (json["data"] === true && json["message"] === "OK") {
-                location.href = "views/registerUser.html";
+                location.href = "views/homePage.html";
             } else {
                 alert("Invalid password");
 

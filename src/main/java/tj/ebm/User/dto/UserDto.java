@@ -1,5 +1,7 @@
 package tj.ebm.User.dto;
 
+import javax.validation.constraints.NotBlank;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,36 +10,31 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import tj.ebm.Commons.ENUM.UserRole;
+import tj.ebm.Commons.Validator.UniqueLogin;
 
 @Getter
 @Setter
 @NoArgsConstructor
-@RequiredArgsConstructor
 @AllArgsConstructor
 @ToString
 public class UserDto {
-	
+
 	private Long id;
-	
-	@NonNull
+
+	@UniqueLogin
+	@NotBlank
 	private String login;
-	
-	@NonNull
+
+	@NotBlank
 	private String password;
-	
-	@NonNull
+
 	private String firstName;
-	
-	@NonNull
+
 	private String lastName;
-	
-	@NonNull
+
 	private UserRole role;
-	
-	@NonNull
+
+	@NotBlank
 	private String email;
-	
-	
-	
 
 }
