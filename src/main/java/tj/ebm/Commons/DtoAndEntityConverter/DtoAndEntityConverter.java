@@ -8,6 +8,9 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import tj.ebm.Bookstore.Repository.BookstoreRepository;
+import tj.ebm.Bookstore.domain.Bookstore;
+import tj.ebm.Bookstore.dto.BookstoreDto;
 import tj.ebm.User.Domain.User;
 import tj.ebm.User.Repository.UserRepository;
 import tj.ebm.User.dto.UserDto;
@@ -16,10 +19,13 @@ import tj.ebm.User.dto.UserDto;
 public class DtoAndEntityConverter {
 
 	private final UserRepository userRepository;
+	private final BookstoreRepository bookstoreRepository;
 
 	@Autowired
-	public DtoAndEntityConverter(UserRepository userRepository) {
+	public DtoAndEntityConverter(UserRepository userRepository,
+			BookstoreRepository bookstoreRepository) {
 		this.userRepository = userRepository;
+		this.bookstoreRepository = bookstoreRepository;
 	}
 
 	public UserDto toUserDto(User user) {
@@ -58,6 +64,35 @@ public class DtoAndEntityConverter {
 		}
 
 		return user;
+	}
+
+	public BookstoreDto toBookstoreDto(Bookstore store) {
+		BookstoreDto dto = new BookstoreDto();
+
+		dto.setId(store.getId());
+		dto.setName(store.getName());
+		dto.setEmail(store.getEmail());
+		dto.setWeb(store.getWeb());
+
+		return dto;
+	}
+
+	public Bookstore toBookstoreEntity(BookstoreDto dto)
+			throws EntityNotFoundException {
+		Bookstore store;
+		if (Objects.nonNull(dto.getId())) {
+			store = bookstoreRepository.getOne(dto.getId());
+
+		} else {
+			store = new Bookstore();
+		}
+
+		store.setId(dto.getId());
+		store.setName(dto.getName());
+		store.setEmail(dto.getEmail());
+		store.setWeb(dto.getWeb());
+
+		return store;
 	}
 
 }
