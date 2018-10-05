@@ -7,5 +7,6 @@ import tj.ebm.User.Domain.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
+	User findUserByLogin(String login);
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,6 +47,21 @@ public class UserServiceImpl implements UserService {
 		} catch (Exception e) {
 			return false;
 		}
+	}
+
+	@Override
+	public UserDto login(UserDto dto) {
+		if (dto.getLogin() == null || dto.getLogin() == "") {
+			return null;
+		}
+		User user = userRepository.findUserByLogin(dto.getLogin());
+		if (Objects.isNull(user)) {
+			return null;
+		}
+		if (BCrypt.checkpw(dto.getPassword(), user.getPassword())) {
+			return converter.toUserDto(user);
+		}
+		return null;
 	}
 
 	@Override

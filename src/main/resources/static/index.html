@@ -6,10 +6,44 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Ebook Manager Index Page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-    <div id="test"></div>
+    <nav>
+        <div>
+            <h1>Menu</h1>
+        </div>
+    </nav>
+
+    <div>
+        <h1>Hello Traveller</h1>
+    </div>
+
+    <div>
+        <h1>Select user:</h1>
+        <select name="selectUser" id="selectUser">
+            <option value="" selected="selected">Wybierz użytkownika</option>
+
+        </select>
+        <button id="button" value="Submit" name="button"> Select users</button>
+    </div>
+    <br>
+
+    <div class="showDetails" id="divForm">
+        <form >
+            <label>Login:
+                <input type="text" id="inputLogin">
+            </label>
+            <br>
+            <br>
+            <label>Password:
+                <input type="password" id="inputPassword">
+            </label>
+            <br>
+            <input type="submit" id="loginUser" value="Login">
+        </form>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="js/index.js"></script>

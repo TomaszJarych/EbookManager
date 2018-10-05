@@ -34,7 +34,7 @@ public class UserController {
 		return Result.ok(userService.getAll());
 	}
 
-	@PostMapping(consumes=APPLICATION_JSON_UTF8_VALUE, produces=APPLICATION_JSON_UTF8_VALUE)
+	@PostMapping(consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE)
 	public Result saveNewUser(@Valid @RequestBody UserDto dto,
 			BindingResult bindingResult) {
 		try {
@@ -42,12 +42,24 @@ public class UserController {
 				return Result.error(ErrorsUtil.errorsToStringFromFieldErrors(
 						bindingResult.getFieldErrors()), dto);
 			}
-			
+
 			return Result.ok(userService.save(dto));
 
 		} catch (EntityNotFoundException e) {
 			return Result.error("Entity not found");
 		}
+	}
+
+	@PostMapping(path = "/login", consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE)
+	public Result loginUser(@RequestBody UserDto dto) {
+
+		UserDto loggedUser = userService.login(dto);
+		if (loggedUser == null) {
+			return Result.error("Invalid login or password");
+		}
+
+		return Result.ok(true);
+
 	}
 
 }
