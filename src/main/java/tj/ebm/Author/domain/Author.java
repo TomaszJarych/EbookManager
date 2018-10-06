@@ -23,8 +23,8 @@ public class Author {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 
-	private Long firstName;
+	private String firstName;
 
-	private Long lastName;
+	private String lastName;
 
 }

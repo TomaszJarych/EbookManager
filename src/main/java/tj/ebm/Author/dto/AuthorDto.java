@@ -16,9 +16,9 @@ public class AuthorDto {
 	private Long id;
 
 	@NotBlank
-	private Long firstName;
+	private String firstName;
 
 	@NotBlank
-	private Long lastName;
+	private String lastName;
 
 }
