@@ -48,7 +48,7 @@ public class UserController {
 			return Result.ok(userService.save(dto));
 
 		} catch (EntityNotFoundException e) {
-			return Result.error("Entity not found");
+			return Result.error("Can't save entity");
 		}
 	}
 
@@ -83,7 +83,7 @@ public class UserController {
 			return Result.ok(userService.save(dto));
 
 		} catch (EntityNotFoundException e) {
-			return Result.error("Entity not found");
+			return Result.error("Cannot update entity");
 		}
 	}
 

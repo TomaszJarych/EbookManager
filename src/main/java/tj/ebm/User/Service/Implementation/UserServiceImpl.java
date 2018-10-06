@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,8 +31,12 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDto findById(Long id) {
+		try {
+			return converter.toUserDto(userRepository.getOne(id));
 
-		return converter.toUserDto(userRepository.getOne(id));
+		} catch (EntityNotFoundException e) {
+			return null;
+		}
 	}
 
 	@Override
@@ -42,7 +48,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Boolean deleteFromDb(Long id) {
 		try {
-			userRepository.findById(id);
+			userRepository.deleteById(id);
 			return true;
 		} catch (Exception e) {
 			return false;

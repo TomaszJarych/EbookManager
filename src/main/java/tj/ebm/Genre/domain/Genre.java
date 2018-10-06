@@ -1,4 +1,4 @@
-package tj.ebm.Bookstore.domain;
+package tj.ebm.Genre.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,12 +10,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
 @Entity
-@Table(name = "book_store")
-public class Bookstore {
+@Table(name = "book_genres")
+public class Genre {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,8 +23,6 @@ public class Bookstore {
 
 	private String name;
 
-	private String email;
-
-	private String web;
+	private String description;
 
 }

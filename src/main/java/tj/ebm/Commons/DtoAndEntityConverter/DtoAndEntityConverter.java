@@ -11,6 +11,9 @@ import org.springframework.stereotype.Component;
 import tj.ebm.Bookstore.Repository.BookstoreRepository;
 import tj.ebm.Bookstore.domain.Bookstore;
 import tj.ebm.Bookstore.dto.BookstoreDto;
+import tj.ebm.Genre.Repository.GenreRepository;
+import tj.ebm.Genre.domain.Genre;
+import tj.ebm.Genre.dto.GenreDto;
 import tj.ebm.User.Domain.User;
 import tj.ebm.User.Repository.UserRepository;
 import tj.ebm.User.dto.UserDto;
@@ -20,12 +23,15 @@ public class DtoAndEntityConverter {
 
 	private final UserRepository userRepository;
 	private final BookstoreRepository bookstoreRepository;
+	private final GenreRepository genreRepository;
 
 	@Autowired
 	public DtoAndEntityConverter(UserRepository userRepository,
-			BookstoreRepository bookstoreRepository) {
+			BookstoreRepository bookstoreRepository,
+			GenreRepository genreRepository) {
 		this.userRepository = userRepository;
 		this.bookstoreRepository = bookstoreRepository;
+		this.genreRepository = genreRepository;
 	}
 
 	public UserDto toUserDto(User user) {
@@ -93,6 +99,32 @@ public class DtoAndEntityConverter {
 		store.setWeb(dto.getWeb());
 
 		return store;
+	}
+
+	public GenreDto toGenreDto(Genre genre) {
+		GenreDto dto = new GenreDto();
+
+		dto.setId(genre.getId());
+		dto.setName(genre.getName());
+		dto.setDescription(genre.getDescription());
+
+		return dto;
+	}
+
+	public Genre toGenreEntity(GenreDto dto) throws EntityNotFoundException {
+		Genre genre;
+		if (Objects.nonNull(dto.getId())) {
+			genre = genreRepository.getOne(dto.getId());
+		} else {
+
+			genre = new Genre();
+		}
+
+		genre.setId(dto.getId());
+		genre.setName(dto.getName());
+		genre.setDescription(dto.getDescription());
+
+		return genre;
 	}
 
 }
