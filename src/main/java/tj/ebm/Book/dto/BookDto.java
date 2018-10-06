@@ -2,13 +2,8 @@ package tj.ebm.Book.dto;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -30,7 +25,7 @@ public class BookDto {
 	private String title;
 
 	private String ISBN;
-	
+
 	@NotBlank
 	private String author;
 

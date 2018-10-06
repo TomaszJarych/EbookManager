@@ -2,7 +2,6 @@ package tj.ebm.Book.Domain;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -34,8 +33,8 @@ public class Book {
 	private Long id;
 
 	private String title;
-	//TODO dodać encję Autor i zamienić na Set @ManyToMany
-	private String author; 
+	// TODO dodać encję Autor i zamienić na Set @ManyToMany
+	private String author;
 
 	private String ISBN;
 

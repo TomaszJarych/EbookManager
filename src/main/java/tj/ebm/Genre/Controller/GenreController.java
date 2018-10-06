@@ -1,13 +1,12 @@
 package tj.ebm.Genre.Controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
-
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,39 +39,27 @@ public class GenreController {
 
 	@GetMapping(path = "/{id}", produces = APPLICATION_JSON_UTF8_VALUE)
 	public Result getGenreById(@PathVariable("id") Long id) {
-		try {
-			return Result.ok(genreService.findById(id));
-		} catch (EntityNotFoundException e) {
-			return Result.error("Entity not found");
-		}
+		return Result.ok(genreService.findById(id));
 	}
 
 	@PostMapping(consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE)
 	public Result saveNewGenre(@Valid @RequestBody GenreDto dto,
 			BindingResult bindingResult) {
-		try {
-			if (bindingResult.hasErrors()) {
-				return Result.error(ErrorsUtil.errorsToStringFromFieldErrors(
-						bindingResult.getFieldErrors()), dto);
-			}
-			return Result.ok(genreService.save(dto));
-		} catch (Exception e) {
-			return Result.error("Cannot save Genre");
+		if (bindingResult.hasErrors()) {
+			return Result.error(ErrorsUtil.errorsToStringFromFieldErrors(
+					bindingResult.getFieldErrors()), dto);
 		}
+		return Result.ok(genreService.save(dto));
 	}
 
 	@PutMapping(consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE)
 	public Result editGenre(@Valid @RequestBody GenreDto dto,
 			BindingResult bindingResult) {
-		try {
-			if (bindingResult.hasErrors()) {
-				return Result.error(ErrorsUtil.errorsToStringFromFieldErrors(
-						bindingResult.getFieldErrors()), dto);
-			}
-			return Result.ok(genreService.save(dto));
-		} catch (Exception e) {
-			return Result.error("Cannot save Genre");
+		if (bindingResult.hasErrors()) {
+			return Result.error(ErrorsUtil.errorsToStringFromFieldErrors(
+					bindingResult.getFieldErrors()), dto);
 		}
+		return Result.ok(genreService.save(dto));
 	}
 
 	@DeleteMapping(path = "/{id}", produces = APPLICATION_JSON_UTF8_VALUE)

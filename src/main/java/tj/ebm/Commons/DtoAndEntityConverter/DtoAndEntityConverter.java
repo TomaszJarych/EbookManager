@@ -8,6 +8,10 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import tj.ebm.Author.Repository.AuthorRepository;
+import tj.ebm.Author.domain.Author;
+import tj.ebm.Author.dto.AuthorDto;
+import tj.ebm.Book.Repository.BookRepository;
 import tj.ebm.Bookstore.Repository.BookstoreRepository;
 import tj.ebm.Bookstore.domain.Bookstore;
 import tj.ebm.Bookstore.dto.BookstoreDto;
@@ -24,14 +28,19 @@ public class DtoAndEntityConverter {
 	private final UserRepository userRepository;
 	private final BookstoreRepository bookstoreRepository;
 	private final GenreRepository genreRepository;
+	private final AuthorRepository authorRepository;
+	private final BookRepository bookRepository;
 
 	@Autowired
 	public DtoAndEntityConverter(UserRepository userRepository,
 			BookstoreRepository bookstoreRepository,
-			GenreRepository genreRepository) {
+			GenreRepository genreRepository, AuthorRepository authorRepository,
+			BookRepository bookRepository) {
 		this.userRepository = userRepository;
 		this.bookstoreRepository = bookstoreRepository;
 		this.genreRepository = genreRepository;
+		this.authorRepository = authorRepository;
+		this.bookRepository = bookRepository;
 	}
 
 	public UserDto toUserDto(User user) {
@@ -125,6 +134,41 @@ public class DtoAndEntityConverter {
 		genre.setDescription(dto.getDescription());
 
 		return genre;
+	}
+
+	public AuthorDto toAuthorDto(Author author) {
+		AuthorDto dto = new AuthorDto();
+
+		dto.setId(author.getId());
+		dto.setFirstName(author.getFirstName());
+		dto.setLastName(author.getLastName());
+
+		return dto;
+	}
+
+	public AuthorDto toAuthorSimpleDto(Author author) {
+		AuthorDto dto = new AuthorDto();
+
+		dto.setId(author.getId());
+		dto.setFirstName(author.getFirstName());
+		dto.setLastName(author.getLastName());
+
+		return dto;
+	}
+
+	public Author toAuthorEntity(AuthorDto dto) throws EntityNotFoundException {
+		Author author;
+		if (Objects.nonNull(dto.getId())) {
+			author = authorRepository.getOne(dto.getId());
+		} else {
+			author = new Author();
+		}
+
+		author.setId(dto.getId());
+		author.setFirstName(dto.getFirstName());
+		author.setLastName(dto.getLastName());
+
+		return author;
 	}
 
 }

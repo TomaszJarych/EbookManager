@@ -39,17 +39,13 @@ public class UserController {
 	@PostMapping(consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE)
 	public Result saveNewUser(@Valid @RequestBody UserDto dto,
 			BindingResult bindingResult) {
-		try {
-			if (bindingResult.hasErrors()) {
-				return Result.error(ErrorsUtil.errorsToStringFromFieldErrors(
-						bindingResult.getFieldErrors()), dto);
-			}
-
-			return Result.ok(userService.save(dto));
-
-		} catch (EntityNotFoundException e) {
-			return Result.error("Can't save entity");
+		if (bindingResult.hasErrors()) {
+			return Result.error(ErrorsUtil.errorsToStringFromFieldErrors(
+					bindingResult.getFieldErrors()), dto);
 		}
+
+		return Result.ok(userService.save(dto));
+
 	}
 
 	@PostMapping(path = "/login", consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE)
@@ -64,27 +60,17 @@ public class UserController {
 
 	@GetMapping(path = "/{id}", produces = APPLICATION_JSON_UTF8_VALUE)
 	public Result getUserById(@PathVariable("id") Long id) {
-		try {
-			return Result.ok(userService.findById(id));
-		} catch (EntityNotFoundException e) {
-			return Result.error("Entity not found");
-		}
+		return Result.ok(userService.findById(id));
 	}
 
 	@PutMapping(consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE)
 	public Result editUser(@Valid @RequestBody UserDto dto,
 			BindingResult bindingResult) {
-		try {
-			if (bindingResult.hasErrors()) {
-				return Result.error(ErrorsUtil.errorsToStringFromFieldErrors(
-						bindingResult.getFieldErrors()), dto);
-			}
-
-			return Result.ok(userService.save(dto));
-
-		} catch (EntityNotFoundException e) {
-			return Result.error("Cannot update entity");
+		if (bindingResult.hasErrors()) {
+			return Result.error(ErrorsUtil.errorsToStringFromFieldErrors(
+					bindingResult.getFieldErrors()), dto);
 		}
+		return Result.ok(userService.save(dto));
 	}
 
 	@DeleteMapping(path = "/{id}", produces = APPLICATION_JSON_UTF8_VALUE)

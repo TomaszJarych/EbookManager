@@ -45,30 +45,23 @@ public class BookstoreController {
 	@PostMapping(produces = APPLICATION_JSON_UTF8_VALUE, consumes = APPLICATION_JSON_UTF8_VALUE)
 	public Result addNewBookstore(@Valid @RequestBody BookstoreDto dto,
 			BindingResult bindingResult) {
-		try {
-			if (bindingResult.hasErrors()) {
-				return Result.error(ErrorsUtil.errorsToStringFromFieldErrors(
-						bindingResult.getFieldErrors()), dto);
-			}
-			return Result.ok(bookstoreService.save(dto));
-
-		} catch (EntityNotFoundException e) {
-			return Result.error("Entity nof found!");
+		if (bindingResult.hasErrors()) {
+			return Result.error(ErrorsUtil.errorsToStringFromFieldErrors(
+					bindingResult.getFieldErrors()), dto);
 		}
+		return Result.ok(bookstoreService.save(dto));
+
 	}
+	
 	@PutMapping(produces = APPLICATION_JSON_UTF8_VALUE, consumes = APPLICATION_JSON_UTF8_VALUE)
 	public Result editBookstore(@Valid @RequestBody BookstoreDto dto,
 			BindingResult bindingResult) {
-		try {
 			if (bindingResult.hasErrors()) {
 				return Result.error(ErrorsUtil.errorsToStringFromFieldErrors(
 						bindingResult.getFieldErrors()), dto);
 			}
 			return Result.ok(bookstoreService.save(dto));
 
-		} catch (EntityNotFoundException e) {
-			return Result.error("Entity nof found!");
-		}
 	}
 
 	@DeleteMapping(path = "/{id}", produces = APPLICATION_JSON_UTF8_VALUE)
