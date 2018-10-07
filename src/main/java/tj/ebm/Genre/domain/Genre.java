@@ -14,7 +14,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name = "book_genres")
+@Table(name = "genres")
 public class Genre {
 
 	@Id

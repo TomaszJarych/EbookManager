@@ -1,9 +1,16 @@
 package tj.ebm.Commons.DtoAndEntityConverter;
 
+import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.loader.plan.build.internal.returns.EncapsulatedEntityIdentifierDescription;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,7 +18,9 @@ import org.springframework.stereotype.Component;
 import tj.ebm.Author.Repository.AuthorRepository;
 import tj.ebm.Author.domain.Author;
 import tj.ebm.Author.dto.AuthorDto;
+import tj.ebm.Book.Domain.Book;
 import tj.ebm.Book.Repository.BookRepository;
+import tj.ebm.Book.dto.BookDto;
 import tj.ebm.Bookstore.Repository.BookstoreRepository;
 import tj.ebm.Bookstore.domain.Bookstore;
 import tj.ebm.Bookstore.dto.BookstoreDto;
@@ -171,4 +180,94 @@ public class DtoAndEntityConverter {
 		return author;
 	}
 
+	public BookDto toBookDto(Book book) {
+		BookDto dto = new BookDto();
+
+		dto.setId(book.getId());
+		dto.setISBN(book.getISBN());
+		dto.setTitle(book.getTitle());
+		dto.setCreated(book.getCreated());
+
+		if (Objects.nonNull(book.getOwner())) {
+			dto.setOwner(toUserDto(book.getOwner()));
+		}
+		if (Objects.nonNull(book.getBookstore())) {
+			dto.setBookstore(toBookstoreDto(book.getBookstore()));
+		}
+		if (Objects.nonNull(book.getGenres()) && !book.getGenres().isEmpty()) {
+			dto.getGenres().clear();
+			dto.setGenres(book.getGenres().stream().filter(Objects::nonNull)
+					.map(this::toGenreDto).collect(Collectors.toSet()));
+
+		}
+		if (Objects.nonNull(dto.getAuthors()) && !dto.getAuthors().isEmpty()) {
+			dto.getAuthors().clear();
+			dto.setAuthors(book.getAuthors().stream().filter(Objects::nonNull)
+					.map(this::toAuthorSimpleDto).collect(Collectors.toSet()));
+
+		}
+
+		return dto;
+	}
+
+	public BookDto toSimpleBookDto(Book book) {
+		BookDto dto = new BookDto();
+
+		dto.setId(book.getId());
+		dto.setISBN(book.getISBN());
+		dto.setTitle(book.getTitle());
+		dto.setCreated(book.getCreated());
+
+		if (Objects.nonNull(book.getOwner())) {
+			dto.setOwner(toUserDto(book.getOwner()));
+		}
+		if (Objects.nonNull(book.getBookstore())) {
+			dto.setBookstore(toBookstoreDto(book.getBookstore()));
+		}
+		if (Objects.nonNull(book.getGenres()) && !book.getGenres().isEmpty()) {
+			dto.getGenres().clear();
+			dto.setGenres(book.getGenres().stream().filter(Objects::nonNull)
+					.map(this::toGenreDto).collect(Collectors.toSet()));
+
+		}
+
+		return dto;
+	}
+
+	public Book toBookEntity(BookDto dto) throws EntityNotFoundException {
+		Book book;
+		if (Objects.nonNull(dto.getId())) {
+			book = bookRepository.getOne(dto.getId());
+		} else {
+			book = new Book();
+		}
+
+		book.setId(dto.getId());
+		book.setISBN(dto.getISBN());
+		book.setTitle(dto.getTitle());
+
+		if (Objects.nonNull(dto.getOwner())) {
+			book.setOwner(userRepository.getOne(book.getOwner().getId()));
+		}
+
+		if (Objects.nonNull(dto.getBookstore().getId())) {
+			book.setBookstore(
+					bookstoreRepository.getOne(dto.getBookstore().getId()));
+		}
+		if (Objects.nonNull(dto.getGenres()) && !dto.getGenres().isEmpty()) {
+
+			book.setGenres(dto.getGenres().stream()
+					.map(el -> genreRepository.getOne(el.getId()))
+					.collect(Collectors.toSet()));
+		}
+
+		if (Objects.nonNull(dto.getAuthors()) && !dto.getAuthors().isEmpty()) {
+			book.setAuthors(dto.getAuthors().stream()
+					.map(el -> authorRepository.getOne(el.getId()))
+					.collect(Collectors.toSet()));
+
+		}
+
+		return book;
+	}
 }

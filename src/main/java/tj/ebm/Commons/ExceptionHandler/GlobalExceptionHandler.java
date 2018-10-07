@@ -12,7 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import tj.ebm.Commons.Result.Result;
 
-@ControllerAdvice(annotations=RestController.class)
+@ControllerAdvice(annotations = RestController.class)
 @RequestMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 

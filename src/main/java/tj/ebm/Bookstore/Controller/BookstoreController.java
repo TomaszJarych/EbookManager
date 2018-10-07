@@ -2,7 +2,6 @@ package tj.ebm.Bookstore.Controller;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 
-import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,15 +51,15 @@ public class BookstoreController {
 		return Result.ok(bookstoreService.save(dto));
 
 	}
-	
+
 	@PutMapping(produces = APPLICATION_JSON_UTF8_VALUE, consumes = APPLICATION_JSON_UTF8_VALUE)
 	public Result editBookstore(@Valid @RequestBody BookstoreDto dto,
 			BindingResult bindingResult) {
-			if (bindingResult.hasErrors()) {
-				return Result.error(ErrorsUtil.errorsToStringFromFieldErrors(
-						bindingResult.getFieldErrors()), dto);
-			}
-			return Result.ok(bookstoreService.save(dto));
+		if (bindingResult.hasErrors()) {
+			return Result.error(ErrorsUtil.errorsToStringFromFieldErrors(
+					bindingResult.getFieldErrors()), dto);
+		}
+		return Result.ok(bookstoreService.save(dto));
 
 	}
 

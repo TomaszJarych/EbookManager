@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import tj.ebm.Author.domain.Author;
 import tj.ebm.Bookstore.domain.Bookstore;
 import tj.ebm.Genre.domain.Genre;
 import tj.ebm.User.Domain.User;
@@ -33,8 +34,6 @@ public class Book {
 	private Long id;
 
 	private String title;
-	// TODO dodać encję Autor i zamienić na Set @ManyToMany
-	private String author;
 
 	private String ISBN;
 
@@ -49,5 +48,8 @@ public class Book {
 	private LocalDateTime created = LocalDateTime.now();
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	private final Set<Genre> genres = new HashSet<>();
+	private Set<Genre> genres = new HashSet<>();
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	private Set<Author> authors = new HashSet<>();
 }

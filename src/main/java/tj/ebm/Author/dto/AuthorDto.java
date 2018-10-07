@@ -1,7 +1,5 @@
 package tj.ebm.Author.dto;
 
-import java.util.Set;
-
 import javax.validation.constraints.NotBlank;
 
 import lombok.Getter;

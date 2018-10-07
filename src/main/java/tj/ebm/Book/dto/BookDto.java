@@ -10,9 +10,14 @@ import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import tj.ebm.Author.domain.Author;
+import tj.ebm.Author.dto.AuthorDto;
 import tj.ebm.Bookstore.domain.Bookstore;
+import tj.ebm.Bookstore.dto.BookstoreDto;
 import tj.ebm.Genre.domain.Genre;
+import tj.ebm.Genre.dto.GenreDto;
 import tj.ebm.User.Domain.User;
+import tj.ebm.User.dto.UserDto;
 
 @Getter
 @Setter
@@ -26,15 +31,15 @@ public class BookDto {
 
 	private String ISBN;
 
-	@NotBlank
-	private String author;
-
 	@NotNull
-	private User owner;
+	private UserDto owner;
 
-	private Bookstore bookstore;
+	private BookstoreDto bookstore;
 
 	private LocalDateTime created = LocalDateTime.now();
 
-	private final Set<Genre> genres = new HashSet<>();
+	private Set<GenreDto> genres = new HashSet<>();
+
+	private Set<AuthorDto> authors = new HashSet<>();
+
 }
