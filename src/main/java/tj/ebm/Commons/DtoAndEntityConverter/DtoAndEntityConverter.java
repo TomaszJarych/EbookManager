@@ -145,6 +145,13 @@ public class DtoAndEntityConverter {
 		dto.setId(author.getId());
 		dto.setFirstName(author.getFirstName());
 		dto.setLastName(author.getLastName());
+		if (Objects.nonNull(author.getBooks())
+				&& !author.getBooks().isEmpty()) {
+			dto.getBooks().clear();
+			dto.setBooks(author.getBooks().stream().map(this::toSimpleBookDto)
+					.collect(Collectors.toSet()));
+
+		}
 
 		return dto;
 	}
@@ -212,6 +219,7 @@ public class DtoAndEntityConverter {
 		dto.setISBN(book.getISBN());
 		dto.setTitle(book.getTitle());
 		dto.setCreated(book.getCreated());
+		dto.setAuthors(null);
 
 		if (Objects.nonNull(book.getOwner())) {
 			dto.setOwner(toUserDto(book.getOwner()));

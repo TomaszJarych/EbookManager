@@ -1,10 +1,14 @@
 package tj.ebm.Author.dto;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.validation.constraints.NotBlank;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import tj.ebm.Book.dto.BookDto;
 
 @Getter
 @Setter
@@ -18,5 +22,7 @@ public class AuthorDto {
 
 	@NotBlank
 	private String lastName;
+	
+	private Set<BookDto> books = new HashSet<>();
 
 }

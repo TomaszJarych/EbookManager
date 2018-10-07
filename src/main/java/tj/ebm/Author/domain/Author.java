@@ -1,14 +1,19 @@
 package tj.ebm.Author.domain;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import tj.ebm.Book.Domain.Book;
 
 @Getter
 @Setter
@@ -24,5 +29,8 @@ public class Author {
 	private String firstName;
 
 	private String lastName;
+	
+	@ManyToMany(mappedBy="authors")
+	private Set<Book> books = new HashSet<>();
 
 }
