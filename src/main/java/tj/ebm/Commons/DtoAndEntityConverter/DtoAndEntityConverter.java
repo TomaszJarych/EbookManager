@@ -1,16 +1,10 @@
 package tj.ebm.Commons.DtoAndEntityConverter;
 
-import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
-import org.hibernate.loader.plan.build.internal.returns.EncapsulatedEntityIdentifierDescription;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -200,7 +194,8 @@ public class DtoAndEntityConverter {
 					.map(this::toGenreDto).collect(Collectors.toSet()));
 
 		}
-		if (Objects.nonNull(dto.getAuthors()) && !dto.getAuthors().isEmpty()) {
+		if (Objects.nonNull(book.getAuthors())
+				&& !book.getAuthors().isEmpty()) {
 			dto.getAuthors().clear();
 			dto.setAuthors(book.getAuthors().stream().filter(Objects::nonNull)
 					.map(this::toAuthorSimpleDto).collect(Collectors.toSet()));
@@ -247,7 +242,7 @@ public class DtoAndEntityConverter {
 		book.setTitle(dto.getTitle());
 
 		if (Objects.nonNull(dto.getOwner())) {
-			book.setOwner(userRepository.getOne(book.getOwner().getId()));
+			book.setOwner(userRepository.getOne(dto.getOwner().getId()));
 		}
 
 		if (Objects.nonNull(dto.getBookstore().getId())) {

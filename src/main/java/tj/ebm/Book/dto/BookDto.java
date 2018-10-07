@@ -10,13 +10,9 @@ import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import tj.ebm.Author.domain.Author;
 import tj.ebm.Author.dto.AuthorDto;
-import tj.ebm.Bookstore.domain.Bookstore;
 import tj.ebm.Bookstore.dto.BookstoreDto;
-import tj.ebm.Genre.domain.Genre;
 import tj.ebm.Genre.dto.GenreDto;
-import tj.ebm.User.Domain.User;
 import tj.ebm.User.dto.UserDto;
 
 @Getter
