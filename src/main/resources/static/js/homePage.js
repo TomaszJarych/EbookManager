@@ -4,6 +4,14 @@ $(document).ready(function () {
     
     dataFromDb.fetch();
 
+    let testBooks = dataFromDb.books;
+    
+    
+    for (let index = 0; index < testBooks.length; index++) {
+        console.log(testBooks[index]);
+        
+    }
+
 
 });
 

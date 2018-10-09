@@ -55,9 +55,12 @@ $(document).ready(function () {
             dataType: "json"
         }).done(function (json) {
 
-            if (json["data"] === true && json["message"] === "OK") {
+            if (json["data"] !== null && json["message"] === "OK") {
+                sessionStorage.setItem("loggedUserId",json["data"].id )
+                sessionStorage.setItem("loggedUserLogin",json["data"].login)
                 location.href = "views/homePage.html";
             } else {
+                
                 alert("Invalid password");
 
             }
