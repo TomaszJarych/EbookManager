@@ -9,6 +9,9 @@ $(document).ready(function () {
     const emailInput = $("#email");
     const userRoleInput = $("#userRole");
     const errorsDiv = $("#errors");
+
+
+    
     let loggedUserId;
 
     if (sessionStorage.getItem("loggedUserId") === null || sessionStorage.getItem("loggedUserId") === "") {
@@ -18,9 +21,6 @@ $(document).ready(function () {
         getLoggedUser(loggedUserId);
 
     }
-
-
-
 
 
     submitButton.on("click", function (event) {

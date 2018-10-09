@@ -48,6 +48,11 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
+	public List<BookDto> findAllBooksByAuthorsId(Long id) {
+		return toBookDtoList(bookRepository.findAllBooksByAuthorsId(id));
+	}
+
+	@Override
 	public List<BookDto> getAll() {
 		return toBookDtoList(bookRepository.findAll());
 	}

@@ -41,6 +41,11 @@ public class BookController {
 	public Result getBookById(@PathVariable("id") Long id) {
 		return Result.ok(bookService.findById(id));
 	}
+	
+	@GetMapping(path="/booksByAuthorsId/{id}")
+	public Result getBooksByAuthorsId(@PathVariable("id")Long id) {
+		return Result.ok(bookService.findAllBooksByAuthorsId(id));
+	}
 
 	@PostMapping(produces = APPLICATION_JSON_UTF8_VALUE, consumes = APPLICATION_JSON_UTF8_VALUE)
 	public Result addNewBook(@Valid @RequestBody BookDto dto,
