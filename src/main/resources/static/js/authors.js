@@ -10,7 +10,6 @@ $(document).ready(function () {
     showAllAuthors();
 
     button.on("click", function () {
-        // location.href = "./addAuthorForm.html"
         editAuthorDiv.html("");
         showAddForm();
 
@@ -23,7 +22,7 @@ function showAllAuthors() {
         type: "GET",
         dataType: "json"
     }).done(function (json) {
-        table.html("");
+        table.html("<tr><th>First Name</th><th>Last Name</th><th colspan=\"3\">Detail</th></tr>");
         for (let author of json["data"]) {
             table.append($("<tr><td>" + author.firstName + "</td><td>" + author.lastName +
                 "</td><td><button id=\"authorID" + author.id + "\">Show books </button></td>" +
@@ -64,7 +63,7 @@ function getBooksByAuthor(authorId) {
         dataType: "json"
     }).done(function (json) {
         bookTable.html("");
-        bookTable.append($("<tr><td>Title</td><td>ISBN</td><td>Bookstore</td><td>Owner:</td></tr>"))
+        bookTable.append($("<tr><th>Title</th><th>ISBN</th><th>Bookstore</th><th>Owner</th></tr>"))
         for (const book of json["data"]) {
             bookTable.append($(
                 "<tr><td>" + book.title + "</td>" +
