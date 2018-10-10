@@ -5,6 +5,8 @@ import org.springframework.validation.BindingResult;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,6 +22,7 @@ import tj.ebm.Book.Service.BookService;
 import tj.ebm.Book.dto.BookDto;
 import tj.ebm.Commons.ErrorsUtil.ErrorsUtil;
 import tj.ebm.Commons.Result.Result;
+import tj.ebm.Genre.dto.GenreDto;
 
 @RestController
 @RequestMapping("/book")
@@ -41,10 +44,20 @@ public class BookController {
 	public Result getBookById(@PathVariable("id") Long id) {
 		return Result.ok(bookService.findById(id));
 	}
-	
-	@GetMapping(path="/booksByAuthorsId/{id}")
-	public Result getBooksByAuthorsId(@PathVariable("id")Long id) {
+
+	@GetMapping(path = "/booksByAuthorsId/{id}", produces=APPLICATION_JSON_UTF8_VALUE)
+	public Result getBooksByAuthorsId(@PathVariable("id") Long id) {
 		return Result.ok(bookService.findAllBooksByAuthorsId(id));
+	}
+	@GetMapping(path = "/booksByGenresId/{id}", produces=APPLICATION_JSON_UTF8_VALUE)
+	public Result getBooksByGenresId(@PathVariable("id") Long id) {
+		return Result.ok(bookService.findAllBooksByGenresId(id));
+	}
+
+	@GetMapping(path = "/booksByGenres", produces = APPLICATION_JSON_UTF8_VALUE, 
+				consumes = APPLICATION_JSON_UTF8_VALUE)
+	public Result getBooksByGenres(@RequestBody List<GenreDto> genres) {
+		return Result.ok(bookService.findAllBooksByGenresIn(genres));
 	}
 
 	@PostMapping(produces = APPLICATION_JSON_UTF8_VALUE, consumes = APPLICATION_JSON_UTF8_VALUE)

@@ -48,6 +48,7 @@ public class GenreController {
 			return Result.error(ErrorsUtil.errorsToStringFromFieldErrors(
 					bindingResult.getFieldErrors()), dto);
 		}
+		System.out.println(dto);
 		return Result.ok(genreService.save(dto));
 	}
 

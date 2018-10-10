@@ -1,43 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl-PL">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Genres</title>
     <link rel="stylesheet" href="../css/style.css">
-    <title>Authors</title>
 </head>
 
 <body>
+
     <div id="menu">
         <a href="../index.html">Selec user page</a>
         <a href="editUser.html">Edit Your data</a>
         <a href="homePage.html">Home</a>
+        <a href="authors.html">Show Authors</a>
     </div>
-    <h1>Authors</h1>
-    <div id="authors">
+    <div id="title">
+        <h1>Genres</h1>
+    </div>
+
+    <div id="genres">
         <div id="table">
-            <table id="authorsTable" border="1"></table>
+            <table id="genresTable" border="1"></table>
         </div>
-        <br>
-        <div id="newAuthor">
-            <button id="newAuthorButton">Add New Author</button>
+        <div>
+            <button id="addNewGenresButton">Add new Genre</button>
         </div>
     </div>
     <br>
     <br>
+
     <div id="showBooksDiv" , class="showDetails">
         <table id="bookTable" border="1"></table>
     </div>
+    <br>
+    <br>
 
+    <div id="newGenreErrors"></div>
+    <div id="addNewGenreForm" class="showDetails">
+    </div>
     <br>
     <br>
-    <div id="editAuthorErrors"></div>
-    <div id="editAuthorDiv" , class="showDetails"></div>
+    <div id="editGenreForm" class="showDetails"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="../js/authors.js"></script>
+    <script src="../js/genres.js"></script>
 </body>
 
 </html>

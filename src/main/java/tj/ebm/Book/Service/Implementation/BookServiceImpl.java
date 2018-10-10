@@ -12,6 +12,7 @@ import tj.ebm.Book.Repository.BookRepository;
 import tj.ebm.Book.Service.BookService;
 import tj.ebm.Book.dto.BookDto;
 import tj.ebm.Commons.DtoAndEntityConverter.DtoAndEntityConverter;
+import tj.ebm.Genre.dto.GenreDto;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -55,6 +56,18 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public List<BookDto> getAll() {
 		return toBookDtoList(bookRepository.findAll());
+	}
+
+	@Override
+	public List<BookDto> findAllBooksByGenresIn(List<GenreDto> genres) {
+		return toBookDtoList(bookRepository.findAllBooksByGenresIn(genres
+				.stream().map(converter::toGenreEntity).filter(Objects::nonNull)
+				.collect(Collectors.toList())));
+	}
+
+	@Override
+	public List<BookDto> findAllBooksByGenresId(Long id) {
+		return toBookDtoList(bookRepository.findAllBooksByGenresId(id));
 	}
 
 	private List<BookDto> toBookDtoList(List<Book> list) {
