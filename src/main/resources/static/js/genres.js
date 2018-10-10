@@ -4,7 +4,6 @@ const bookTableDiv = $("#showBooksDiv");
 const bookTable = $("#bookTable");
 const newGenreForm = $("#addNewGenreForm");
 const editGenreForm = $("#editGenreForm");
-const errorsNewGenreDiv = $("#newGenreErrors");
 
 $(document).ready(function () {
 
@@ -12,7 +11,6 @@ $(document).ready(function () {
 
     addNewGenresButton.on("click", function () {
         newGenreForm.html("");
-        errorsNewGenreDiv.html("");
         showAddForm();
     })
 
@@ -27,43 +25,31 @@ function showAllGenres() {
         genresTable.html("<tr><th>Name</th><th>Description</th><th colspan=\"3\">Detail</th></tr></tr>");
         for (const genre of json["data"]) {
             genresTable.append($("<tr><td>" + genre.name + "</td><td>" + genre.description + "</td>" +
-                "<td><button id=\"showBooksByGenre" + genre.id + "\">Show books </button></td>" + "</tr>"
+                "<td><button id=\"showBooksByGenre" + genre.id + "\">Show books </button></td>" +
+                "<td><button id=\"deleteGenreById" + genre.id + "\">Delete genre </button></td>" +
+                "<td><button id=\"editGenreById" + genre.id + "\">Edit Author </button></td>" +
+                "</tr>"
             ));
             $("#showBooksByGenre" + genre.id).on("click", {
                 id: genre.id
             }, function (event) {
                 getBooksByGenre(event.data.id);
                 bookTableDiv.toggleClass("showDetails");
+            });
+            $("#deleteGenreById" + genre.id).on("click", {
+                id: genre.id
+            }, function (event) {
+                deleteGenreById(event.data.id);
+            });
+            $("#editGenreById" + genre.id).on("click", {
+                id: genre.id
+            }, function (event) {
+                editGenreForm.html("");
+                showEditGenreForm(event.data.id);
+
             })
 
         };
-
-        // for (let genre of json["data"]) {
-        //     table.append($("<tr><td>" + author.firstName + "</td><td>" + author.lastName +
-        //         "</td><td><button id=\"authorID" + author.id + "\">Show books </button></td>" +
-        //         "<td><button id=\"deleteAuthorById" + author.id + "\">Delete Author </button></td>" +
-        //         "<td><button id=\"editAuthorById" + author.id + "\">Edit Author </button></td></tr>"));
-        //     $("#authorID" + author.id).on("click", {
-        //         id: author.id
-        //     }, function (event) {
-        //         bookTableDiv.removeClass("showDetails");
-        //         getBooksByAuthor(event.data.id);
-
-        //     });
-        //     $("#deleteAuthorById" + author.id).on("click", {
-        //         id: author.id
-        //     }, function (event) {
-        //         deleteAuthorById(event.data.id);
-        //     });
-        //     $("#editAuthorById" + author.id).on("click", {
-        //         id: author.id
-        //     }, function (event) {
-        //         editAuthorDiv.html("");
-        //         showEditForm(event.data.id);
-
-        //     });
-
-        // }
 
     }).fail(function () {
         alert("Cannot connect to server");
@@ -92,42 +78,8 @@ function getBooksByGenre(genreId) {
     });
 }
 
-function addNewGenre(genreName, genreDescription) {
-    $.ajax({
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        url: "http://localhost:8080/ebm/genre",
-        type: "POST",
-        data: JSON.stringify({
-            id: null,
-            name: genreName,
-            description: genreDescription,
-        }),
-        dataType: "json"
-    }).done(function (json) {
-        console.log(json);
-
-        if (json["message"] !== "OK") {
-            let data = json["data"];
-            let errorsFromServer = json["error"].split(";");
-            errorsNewGenreDiv.html("");
-            for (let error of errorsFromServer) {
-                errorsNewGenreDiv.append($('<h3>' + error + '</h3>'));
-            }
-        } else {
-            errorsNewGenreDiv.html("");
-            newGenreForm.html("");
-            newGenreForm.toggleClass("showDetails");
-            showAllGenres();
-        }
-    }).fail(function () {
-        alert("Cannot connect to server");
-    })
-}
-
 function showAddForm() {
-    newGenreForm.append($("<form method=\"post\"><div><label for=\"genreName\">Name</label>" +
+    newGenreForm.append($("<div id=\"newGenreErrors\"></div><h2>New genre</h2><form method=\"post\"><div><label for=\"genreName\">Name</label>" +
         "<input type=\"text\" name=\"genreName\" id=\"genreName\"></div><br>" +
         "<div><label for=\"genreDescription\">Description:</label><input type=\"text\" name=\"genreDescription\" id=\"genreDescription\"></div><br>" +
         "<div><input type=\"hidden\" name=\"id\" id=\"id\"><input type=\"submit\" id=\"subimtButton\" value=\"Register\"></div></form>"));
@@ -137,11 +89,129 @@ function showAddForm() {
     const submitButton = $("#subimtButton");
     const genreName = $("#genreName");
     const genreDescription = $("#genreDescription");
-    const errorsNewGenreDiv = $("#errors");
+    const errorsNewGenreDiv = $("#newGenreErrors");
 
     submitButton.on("click", function (event) {
         event.preventDefault();
         addNewGenre(genreName.val(), genreDescription.val());
     })
+
+    function addNewGenre(genreName, genreDescription) {
+        $.ajax({
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            url: "http://localhost:8080/ebm/genre",
+            type: "POST",
+            data: JSON.stringify({
+                id: null,
+                name: genreName,
+                description: genreDescription,
+            }),
+            dataType: "json"
+        }).done(function (json) {
+            if (json["message"] !== "OK") {
+                let data = json["data"];
+                let errorsFromServer = json["error"].split(";");
+                errorsNewGenreDiv.html("");
+                for (let error of errorsFromServer) {
+                    errorsNewGenreDiv.append($('<h3>' + error + '</h3>'));
+                }
+            } else {
+                errorsNewGenreDiv.html("");
+                newGenreForm.html("");
+                newGenreForm.toggleClass("showDetails");
+                showAllGenres();
+            }
+        }).fail(function () {
+            alert("Cannot connect to server");
+        })
+    }
+
+}
+
+function deleteGenreById(genreToDeleteID) {
+    $.ajax({
+        url: "http://localhost:8080/ebm/genre/" + genreToDeleteID,
+        type: "DELETE",
+        dataType: "json"
+    }).done(function (json) {
+        if (json["code"] === "200") {
+            alert("Genre has been deleted");
+            showAllGenres();
+        } else {
+            alert("Cannot delete genre");
+        }
+    }).fail(function () {
+        alert("Cannot connect to server");
+
+    });
+}
+
+function showEditGenreForm(id) {
+    editGenreForm.append($("<div id=\"editGenreErrors\"></div><h2>Edit genre</h2><form method=\"post\"><div><label for=\"genreName\">Name</label>" +
+        "<input type=\"text\" name=\"genreName\" id=\"genreName\"></div><br>" +
+        "<div><label for=\"genreDescription\">Description:</label><input type=\"text\" name=\"genreDescription\" id=\"genreDescription\"></div><br>" +
+        "<div><input type=\"hidden\" name=\"id\" id=\"genreId\"><input type=\"submit\" id=\"subimtButton\" value=\"Register\"></div></form>"));
+
+    const submitButton = $("#subimtButton");
+    const genreName = $("#genreName");
+    const genreDescription = $("#genreDescription");
+    const editGenreErrors = $("#editGenreErrors");
+    const idInput = $("#genreId");
+
+    editGenreForm.toggleClass("showDetails");
+    getGenreById(id);
+
+    submitButton.on("click", function (event) {
+        event.preventDefault();
+        editGenrePUT(idInput.val(), genreName.val(), genreDescription.val())
+    })
+
+    function getGenreById(genreId) {
+        $.ajax({
+            url: "http://localhost:8080/ebm/genre/" + genreId,
+            type: "GET",
+            dataType: "json"
+        }).done(function (json) {
+            genreName.val(json["data"].name);
+            genreDescription.val(json["data"].description);
+            idInput.val(json["data"].id)
+        }).fail(function () {
+            alert("Cannot connect to server");
+        });
+    }
+
+    function editGenrePUT(genreId, genreName, genreDescription) {
+        $.ajax({
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            url: "http://localhost:8080/ebm/genre",
+            type: "PUT",
+            data: JSON.stringify({
+                id: genreId,
+                name: genreName,
+                description: genreDescription,
+            }),
+            dataType: "json"
+        }).done(function (json) {
+            if (json["message"] !== "OK") {
+                let errorsFromServer = json["error"].split(";");
+                editGenreErrors.html("");
+                for (let error of errorsFromServer) {
+                    editGenreErrors.append($('<h3>' + error + '</h3>'));
+                }
+            } else {
+                editGenreErrors.html("");
+                editGenreForm.html("");
+                editGenreForm.toggleClass("showDetails");
+                showAllGenres();
+            }
+        }).fail(function () {
+            alert("Cannot connect to server");
+
+        });
+    }
 
 }
