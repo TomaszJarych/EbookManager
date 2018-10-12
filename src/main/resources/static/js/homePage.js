@@ -81,7 +81,7 @@ function showBooksTable() {
         }
         let authorsString = "";
         for (const author of arrayOfAuthors) {
-            authorsString += author.firstName + " " + author.lastName + "\n";
+            authorsString += author.firstName + " " + author.lastName + "; ";
         }
         return authorsString;
 
@@ -168,13 +168,35 @@ function showBooksTable() {
             type: "GET",
             dataType: "json"
         }).done(function (json) {
-            console.log(json);
+            const bookDetail = json["data"];
+            bookDetailsDiv.toggleClass("showDetails");
+            bookDetailsDiv.html("");
+            bookDetailsDiv.append($("<div><h3>Authors</h3><h4>" + getAuthors(bookDetail.authors) + "</h4></div>"));
+            bookDetailsDiv.append($("<div><h3>Title</h3><h4>\"" + bookDetail.title + "\"</h4></div>"));
+            bookDetailsDiv.append($("<div><h3>Bookstore</h3><h4>" + bookDetail.bookstore.name + "</h4></div>"));
+            bookDetailsDiv.append($("<div><h3>ISBN</h3><h4>" + bookDetail.isbn + "</h4></div>"));
+            bookDetailsDiv.append($("<div><h3>Genres</h3><h4>" + getGenres(bookDetail.genres) + "</h4></div>"));
+            bookDetailsDiv.append($("<div><h3>Owner</h3><h4>" + bookDetail.owner.firstName + " " + bookDetail.owner.lastName + "</h4></div>"));
+            bookDetailsDiv.append($("<div><h3>Created</h3><h4>" + new Date(bookDetail.created).toLocaleString() + "</h4></div>"));
+            bookDetailsDiv.append($("<div><button id=\"close\">Close </button></div>"));
+
+            $("#close").on("click", function () {
+                bookDetailsDiv.toggleClass("showDetails");
+                bookDetailsDiv.html("");
+            })
 
         }).fail(function () {
             alert("Cannot connect to server");
 
         });
 
-        
+        function getGenres(arrayOfGenres) {
+            let genresString = "";
+            for (const genre of arrayOfGenres) {
+                genresString += genre.name + " \n";
+            }
+            return genresString;
+        }
+
     }
 }
