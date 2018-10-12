@@ -8,6 +8,13 @@ $(document).ready(function () {
 
     showBooksTable();
 
+    addNewBookButton.on("click", function () {
+        console.log("ADD new Button Click");
+        addNewBookForm.toggleClass("showDetails")
+        showAddNewBookForm();
+
+    })
+
 });
 
 function showBooksTable() {
@@ -199,4 +206,73 @@ function showBooksTable() {
         }
 
     }
+}
+
+function showAddNewBookForm() {
+    addNewBookForm.html("");
+    addNewBookForm.append($("<div><h1>Add new Book</h1></div><form id=\"newBookForm\" method=\"post\"><div><label for=\"title\">Title:</label>" +
+        "<input type=\"text\" name=\"title\" id=\"title\"></div><br><div>" +
+        "<label for=\"isbn\">ISBN:</label><input type=\"text\" name=\"isbn\" id=\"isbn\">" +
+        "</div><br><input type=\"hidden\" name=\"id\" id=\"id\">" +
+        "<div><label for=\"genres\">Genres: </label><select name=\"genres\" multiple=\"multiple\" id=\"genres\"></select></div><br>" +
+        "<div><label for=\"bookstore\">Bookstore </label><select name=\"bookstore\" id=\"bookstore\"></select></div><br></br>" +
+        "<div><label for=\"authors\">Authors: </label><select name=\"authors\" multiple=\"multiple\" id=\"authors\"></select></div><br>" +
+        "<input type=\"submit\" id=\"subimtButton\" value=\"Add\"></div></form>"));
+
+    getGenresFromDB();
+    getBookstoreFromDB();
+    getAuthorsFromDB();
+
+
+
+    function getGenresFromDB() {
+        $.ajax({
+            url: "http://localhost:8080/ebm/genre/all",
+            type: "GET",
+            dataType: "json"
+        }).done(function (json) {
+            for (const genre of json["data"]) {
+                $("#genres").append($("<option value=\"" + genre.id + "\">" + genre.name + "</option>"))
+
+            };
+        }).fail(function () {
+            alert("Cannot connect to server");
+
+        });
+    }
+
+    function getBookstoreFromDB() {
+        $.ajax({
+            url: "http://localhost:8080/ebm/bookstore/all",
+            type: "GET",
+            dataType: "json"
+        }).done(function (json) {
+            console.log(json["data"]);
+
+            for (const bookstore of json["data"]) {
+                $("#bookstore").append($("<option value=\"" + bookstore.id + "\">" + bookstore.name + "</option>"))
+            };
+        }).fail(function () {
+            alert("Cannot connect to server");
+
+        });
+    }
+
+    function getAuthorsFromDB() {
+        $.ajax({
+            url: "http://localhost:8080/ebm/author/all",
+            type: "GET",
+            dataType: "json"
+        }).done(function (json) {
+            for (const author of json["data"]) {
+                $("#authors").append($("<option value=\"" + author.id + "\">" + author.firstName + " " + author.lastName + "</option>"))
+
+            };
+        }).fail(function () {
+            alert("Cannot connect to server");
+
+        });
+    }
+
+
 }
