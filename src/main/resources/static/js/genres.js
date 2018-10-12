@@ -28,6 +28,7 @@ function showAllGenres() {
                 "<td><button id=\"showBooksByGenre" + genre.id + "\">Show books </button></td>" +
                 "<td><button id=\"deleteGenreById" + genre.id + "\">Delete genre </button></td>" +
                 "<td><button id=\"editGenreById" + genre.id + "\">Edit Author </button></td>" +
+
                 "</tr>"
             ));
             $("#showBooksByGenre" + genre.id).on("click", {

@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +44,38 @@ public class BookServiceImpl implements BookService {
 	public Boolean deleteFromDb(Long id) {
 		try {
 			bookRepository.deleteById(id);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public Boolean setIsReadByBookId(Long id) {
+		try {
+			BookDto dto = converter.toBookDto(bookRepository.getOne(id));
+			if (dto.getIsRead()) {
+				dto.setIsRead(false);
+			} else {
+				dto.setIsRead(true);
+			}
+			bookRepository.save(converter.toBookEntity(dto));
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public Boolean setInReaderByBookId(Long id) {
+		try {
+			BookDto dto = converter.toBookDto(bookRepository.getOne(id));
+			if (dto.getInReader()) {
+				dto.setInReader(false);
+			} else {
+				dto.setInReader(true);
+			}
+			bookRepository.save(converter.toBookEntity(dto));
 			return true;
 		} catch (Exception e) {
 			return false;

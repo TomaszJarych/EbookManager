@@ -45,17 +45,16 @@ public class BookController {
 		return Result.ok(bookService.findById(id));
 	}
 
-	@GetMapping(path = "/booksByAuthorsId/{id}", produces=APPLICATION_JSON_UTF8_VALUE)
+	@GetMapping(path = "/booksByAuthorsId/{id}", produces = APPLICATION_JSON_UTF8_VALUE)
 	public Result getBooksByAuthorsId(@PathVariable("id") Long id) {
 		return Result.ok(bookService.findAllBooksByAuthorsId(id));
 	}
-	@GetMapping(path = "/booksByGenresId/{id}", produces=APPLICATION_JSON_UTF8_VALUE)
+	@GetMapping(path = "/booksByGenresId/{id}", produces = APPLICATION_JSON_UTF8_VALUE)
 	public Result getBooksByGenresId(@PathVariable("id") Long id) {
 		return Result.ok(bookService.findAllBooksByGenresId(id));
 	}
 
-	@GetMapping(path = "/booksByGenres", produces = APPLICATION_JSON_UTF8_VALUE, 
-				consumes = APPLICATION_JSON_UTF8_VALUE)
+	@GetMapping(path = "/booksByGenres", produces = APPLICATION_JSON_UTF8_VALUE, consumes = APPLICATION_JSON_UTF8_VALUE)
 	public Result getBooksByGenres(@RequestBody List<GenreDto> genres) {
 		return Result.ok(bookService.findAllBooksByGenresIn(genres));
 	}
@@ -85,6 +84,20 @@ public class BookController {
 		return (bookService.deleteFromDb(id))
 				? Result.ok("Book has been deleted")
 				: Result.error("Cannont delete book");
+	}
+
+	@GetMapping(path = "/setIsRead/{id}", produces = APPLICATION_JSON_UTF8_VALUE)
+	public Result setBookIsRead(@PathVariable("id") Long id) {
+		return (bookService.setIsReadByBookId(id))
+				? Result.ok("OK")
+				: Result.error("ERRPR");
+	}
+
+	@GetMapping(path = "/setInReader/{id}", produces = APPLICATION_JSON_UTF8_VALUE)
+	public Result setBookIsInReader(@PathVariable("id") Long id) {
+		return (bookService.setInReaderByBookId(id))
+				? Result.ok("OK")
+				: Result.error("ERRPR");
 	}
 
 }

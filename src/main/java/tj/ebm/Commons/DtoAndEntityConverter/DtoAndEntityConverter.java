@@ -188,6 +188,9 @@ public class DtoAndEntityConverter {
 		dto.setISBN(book.getISBN());
 		dto.setTitle(book.getTitle());
 		dto.setCreated(book.getCreated());
+		
+		dto.setIsRead(book.getIsRead());
+		dto.setInReader(book.getInReader());
 
 		if (Objects.nonNull(book.getOwner())) {
 			dto.setOwner(toUserDto(book.getOwner()));
@@ -220,6 +223,9 @@ public class DtoAndEntityConverter {
 		dto.setTitle(book.getTitle());
 		dto.setCreated(book.getCreated());
 		dto.setAuthors(null);
+		
+		dto.setIsRead(book.getIsRead());
+		dto.setInReader(book.getInReader());
 
 		if (Objects.nonNull(book.getOwner())) {
 			dto.setOwner(toUserDto(book.getOwner()));
@@ -248,6 +254,8 @@ public class DtoAndEntityConverter {
 		book.setId(dto.getId());
 		book.setISBN(dto.getISBN());
 		book.setTitle(dto.getTitle());
+		book.setIsRead(dto.getIsRead());
+		book.setInReader(dto.getInReader());
 
 		if (Objects.nonNull(dto.getOwner())) {
 			book.setOwner(userRepository.getOne(dto.getOwner().getId()));

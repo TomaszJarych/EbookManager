@@ -52,4 +52,8 @@ public class Book {
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<Author> authors = new HashSet<>();
+	
+	private Boolean isRead = false;
+	
+	private Boolean inReader = false;
 }

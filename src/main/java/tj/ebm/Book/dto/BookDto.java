@@ -38,4 +38,8 @@ public class BookDto {
 
 	private Set<AuthorDto> authors = new HashSet<>();
 
+	private Boolean isRead = false;
+
+	private Boolean inReader = false;
+
 }
