@@ -43,7 +43,7 @@ function showBooksTable() {
                 "<td>" + "<button id=\"markIsInReader" + book.id + "\">" + markIsInReader(book.inReader) + "</button>" + "</td>" +
                 "<td>" + "<button id=\"showBookDetail" + book.id + "\">Show book details </button></td>" +
                 "<td>" + "<button id=\"editBook" + book.id + "\">Edit book </button></td>" +
-                "<td>" + "<button id=\"deleteBook" + book.id + "\">delete book </button></td>" +
+                "<td>" + "<button id=\"deleteBook" + book.id + "\">Delete book </button></td>" +
                 "</tr>"));
 
             $("#markAsRead" + book.id).on("click", {
