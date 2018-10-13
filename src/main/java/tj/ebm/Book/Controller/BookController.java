@@ -62,6 +62,7 @@ public class BookController {
 	@PostMapping(produces = APPLICATION_JSON_UTF8_VALUE, consumes = APPLICATION_JSON_UTF8_VALUE)
 	public Result addNewBook(@Valid @RequestBody BookDto dto,
 			BindingResult bindingResult) {
+		System.out.println(dto.getTitle());
 		if (bindingResult.hasErrors()) {
 			return Result.error(ErrorsUtil.errorsToStringFromFieldErrors(
 					bindingResult.getFieldErrors()), dto);
