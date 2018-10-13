@@ -10,5 +10,5 @@ public class EbookManagerApplication {
 		SpringApplication.run(EbookManagerApplication.class, args);
 	}
 
-	//TODO add boolean isRead; boolean inReader; do encji book
+	//TODO add ratings to BookEntity;
 }
