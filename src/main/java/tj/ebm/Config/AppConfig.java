@@ -13,8 +13,7 @@ public class AppConfig {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**")
-						.allowedMethods("PUT", "DELETE",
+				registry.addMapping("/**").allowedMethods("PUT", "DELETE",
 						"GET", "POST");
 			}
 		};

@@ -22,7 +22,7 @@ public class AuthorDto {
 
 	@NotBlank
 	private String lastName;
-	
+
 	private Set<BookDto> books = new HashSet<>();
 
 }

@@ -6,7 +6,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,18 +17,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 import tj.ebm.Commons.ErrorsUtil.ErrorsUtil;
 import tj.ebm.Commons.Result.Result;
+import tj.ebm.Commons.SessionStorageData.SessionStorageData;
 import tj.ebm.User.Service.UserService;
 import tj.ebm.User.dto.UserDto;
 
 @RestController
 @RequestMapping(path = "/user")
-@CrossOrigin(allowedHeaders="*")
+// @CrossOrigin(allowedHeaders="*")
 public class UserController {
 
 	private final UserService userService;
+	private final SessionStorageData sessionData;
+
 	@Autowired
-	public UserController(UserService userService) {
+	public UserController(UserService userService,
+			SessionStorageData sessionData) {
 		this.userService = userService;
+		this.sessionData = sessionData;
 	}
 
 	@GetMapping(path = "/all", produces = APPLICATION_JSON_UTF8_VALUE)
@@ -51,11 +55,12 @@ public class UserController {
 
 	@PostMapping(path = "/login", consumes = APPLICATION_JSON_UTF8_VALUE, produces = APPLICATION_JSON_UTF8_VALUE)
 	public Result loginUser(@RequestBody UserDto dto) {
-
 		UserDto loggedUser = userService.login(dto);
 		if (loggedUser == null) {
 			return Result.error("Invalid login or password");
 		}
+
+		sessionData.setLoggedUser(loggedUser);
 		return Result.ok(loggedUser);
 	}
 
@@ -80,5 +85,4 @@ public class UserController {
 				? Result.ok("User has been deleted")
 				: Result.error("Cannot delete user");
 	}
-
 }

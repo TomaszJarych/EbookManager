@@ -188,7 +188,7 @@ public class DtoAndEntityConverter {
 		dto.setISBN(book.getISBN());
 		dto.setTitle(book.getTitle());
 		dto.setCreated(book.getCreated());
-		
+
 		dto.setIsRead(book.getIsRead());
 		dto.setInReader(book.getInReader());
 
@@ -223,7 +223,7 @@ public class DtoAndEntityConverter {
 		dto.setTitle(book.getTitle());
 		dto.setCreated(book.getCreated());
 		dto.setAuthors(null);
-		
+
 		dto.setIsRead(book.getIsRead());
 		dto.setInReader(book.getInReader());
 

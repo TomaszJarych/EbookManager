@@ -3,6 +3,8 @@ const addNewBookButton = $("#addNewBookButton");
 const addNewBookForm = $("#addNewBookForm");
 const editBookForm = $("#editBookForm");
 const bookDetailsDiv = $("#bookDetailsDiv");
+const sortByTitleButton = $("#sortByTitle");
+const sortByCreatedDate = $("#sortByCreatedDate");
 
 $(document).ready(function () {
 
@@ -11,14 +13,26 @@ $(document).ready(function () {
     addNewBookButton.on("click", function () {
         addNewBookForm.toggleClass("showDetails");
         showAddNewBookForm();
+    });
 
-    })
+    sortByTitleButton.on("click", function () {
+        showBooksTable("http://localhost:8080/ebm/book/booksByTitle");
 
+    });
+    sortByCreatedDate.on("click", function () {
+        showBooksTable("http://localhost:8080/ebm/book/booksByCreatedDate");
+
+    });
 });
 
-function showBooksTable() {
+function showBooksTable(urlAddress) {
+
+    if (urlAddress === undefined || urlAddress === null) {
+        urlAddress = "http://localhost:8080/ebm/book/allByOwner";
+    }
+
     $.ajax({
-        url: "http://localhost:8080/ebm/book/all",
+        url: urlAddress,
         type: "GET",
         dataType: "json"
     }).done(function (json) {

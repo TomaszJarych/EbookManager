@@ -1,14 +1,13 @@
 package tj.ebm.Book.Controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
-
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 
 import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +21,7 @@ import tj.ebm.Book.Service.BookService;
 import tj.ebm.Book.dto.BookDto;
 import tj.ebm.Commons.ErrorsUtil.ErrorsUtil;
 import tj.ebm.Commons.Result.Result;
+import tj.ebm.Commons.SessionStorageData.SessionStorageData;
 import tj.ebm.Genre.dto.GenreDto;
 
 @RestController
@@ -29,15 +29,26 @@ import tj.ebm.Genre.dto.GenreDto;
 public class BookController {
 
 	private final BookService bookService;
+	private final SessionStorageData sessionData;
 
 	@Autowired
-	public BookController(BookService bookService) {
+	public BookController(BookService bookService,
+			SessionStorageData sessionData) {
 		this.bookService = bookService;
+		this.sessionData = sessionData;
 	}
 
 	@GetMapping(path = "/all", produces = APPLICATION_JSON_UTF8_VALUE)
 	public Result getAllBooks() {
 		return Result.ok(bookService.getAll());
+	}
+	@GetMapping(path = "/allByOwner", produces = APPLICATION_JSON_UTF8_VALUE)
+	public Result getAllBooksByOwnerId() {
+		if (sessionData.getLoggedUser().getId() == null) {
+			return Result.error("There is no logged in User");
+		}
+		return Result.ok(bookService
+				.findAllBooksByOwnerId(sessionData.getLoggedUser().getId()));
 	}
 
 	@GetMapping(path = "/{id}", produces = APPLICATION_JSON_UTF8_VALUE)
@@ -45,18 +56,44 @@ public class BookController {
 		return Result.ok(bookService.findById(id));
 	}
 
-	@GetMapping(path = "/booksByAuthorsId/{id}", produces = APPLICATION_JSON_UTF8_VALUE)
-	public Result getBooksByAuthorsId(@PathVariable("id") Long id) {
-		return Result.ok(bookService.findAllBooksByAuthorsId(id));
+	@GetMapping(path = "/booksByAuthorsId", produces = APPLICATION_JSON_UTF8_VALUE)
+	public Result getBooksByAuthorsId() {
+		if (sessionData.getLoggedUser().getId() == null) {
+			return Result.error("There is no logged in User");
+		}
+		return Result.ok(bookService
+				.findAllBooksByAuthorsId(sessionData.getLoggedUser().getId()));
 	}
-	@GetMapping(path = "/booksByGenresId/{id}", produces = APPLICATION_JSON_UTF8_VALUE)
-	public Result getBooksByGenresId(@PathVariable("id") Long id) {
-		return Result.ok(bookService.findAllBooksByGenresId(id));
+	@GetMapping(path = "/booksByGenresId", produces = APPLICATION_JSON_UTF8_VALUE)
+	public Result getBooksByGenresId() {
+		if (sessionData.getLoggedUser().getId() == null) {
+			return Result.error("There is no logged in User");
+		}
+		return Result.ok(bookService
+				.findAllBooksByGenresId(sessionData.getLoggedUser().getId()));
 	}
 
 	@GetMapping(path = "/booksByGenres", produces = APPLICATION_JSON_UTF8_VALUE, consumes = APPLICATION_JSON_UTF8_VALUE)
 	public Result getBooksByGenres(@RequestBody List<GenreDto> genres) {
 		return Result.ok(bookService.findAllBooksByGenresIn(genres));
+	}
+
+	@GetMapping(path = "/booksByTitle", produces = APPLICATION_JSON_UTF8_VALUE)
+	public Result getBooksOrderedByTitle() {
+		if (sessionData.getLoggedUser().getId() == null) {
+			return Result.error("There is no logged in User");
+		}
+		return Result.ok(bookService.findAllBooksByOwnerIdOrderByTitleAsc(
+				sessionData.getLoggedUser().getId()));
+	}
+	@GetMapping(path = "/booksByCreatedDate", produces = APPLICATION_JSON_UTF8_VALUE)
+	public Result getBooksOrderedByCreatedDate() {
+		if (sessionData.getLoggedUser().getId() == null) {
+			return Result.error("There is no logged in User");
+		}
+
+		return Result.ok(bookService.findAllBooksByOwnerIdOrderByCreatedDesc(
+				sessionData.getLoggedUser().getId()));
 	}
 
 	@PostMapping(produces = APPLICATION_JSON_UTF8_VALUE, consumes = APPLICATION_JSON_UTF8_VALUE)

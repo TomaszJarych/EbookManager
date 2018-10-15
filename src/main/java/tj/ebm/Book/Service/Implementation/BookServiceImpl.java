@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import javax.persistence.EntityNotFoundException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -102,6 +100,23 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public List<BookDto> findAllBooksByGenresId(Long id) {
 		return toBookDtoList(bookRepository.findAllBooksByGenresId(id));
+	}
+
+	@Override
+	public List<BookDto> findAllBooksByOwnerIdOrderByTitleAsc(Long id) {
+		return toBookDtoList(
+				bookRepository.findAllBooksByOwnerIdOrderByTitleAsc(id));
+	}
+
+	@Override
+	public List<BookDto> findAllBooksByOwnerIdOrderByCreatedDesc(Long id) {
+		return toBookDtoList(
+				bookRepository.findAllBooksByOwnerIdOrderByCreatedDesc(id));
+	}
+
+	@Override
+	public List<BookDto> findAllBooksByOwnerId(Long id) {
+		return toBookDtoList(bookRepository.findAllBooksByOwnerId(id));
 	}
 
 	private List<BookDto> toBookDtoList(List<Book> list) {
