@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import tj.ebm.Commons.ENUM.UserRole;
 import tj.ebm.Commons.ErrorsUtil.ErrorsUtil;
 import tj.ebm.Commons.Result.Result;
 import tj.ebm.Commons.SessionStorageData.SessionStorageData;
@@ -84,5 +85,26 @@ public class UserController {
 		return (userService.deleteFromDb(id))
 				? Result.ok("User has been deleted")
 				: Result.error("Cannot delete user");
+	}
+
+	@GetMapping(path = "/setPrivilagesToADMIN/{id}", produces = APPLICATION_JSON_UTF8_VALUE)
+	public Result setUserRoleToAdmin(@PathVariable("id") Long id) {
+		if (sessionData.getLoggedUser().getRole() == UserRole.ADMIN) {
+			UserDto dto = userService.findById(id);
+			dto.setRole(UserRole.ADMIN);
+			return Result.ok(userService.save(dto));
+		} else {
+			return Result.error("You have no permission to change privilages");
+		}
+	}
+	@GetMapping(path = "/setPrivilagesToUSER/{id}", produces = APPLICATION_JSON_UTF8_VALUE)
+	public Result setUserRoleToUser(@PathVariable("id") Long id) {
+		if (sessionData.getLoggedUser().getRole() == UserRole.ADMIN) {
+			UserDto dto = userService.findById(id);
+			dto.setRole(UserRole.USER);
+			return Result.ok(userService.save(dto));
+		} else {
+			return Result.error("You have no permission to change privilages");
+		}
 	}
 }
