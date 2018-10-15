@@ -5,6 +5,8 @@ const editBookForm = $("#editBookForm");
 const bookDetailsDiv = $("#bookDetailsDiv");
 const sortByTitleButton = $("#sortByTitle");
 const sortByCreatedDate = $("#sortByCreatedDate");
+const findBooksByTitleButton = $("#findBooksByTitleButton");
+const findBooksByTitleDiv = $("#findBooksByTitleDiv");
 
 $(document).ready(function () {
 
@@ -23,6 +25,12 @@ $(document).ready(function () {
         showBooksTable("http://localhost:8080/ebm/book/booksByCreatedDate");
 
     });
+
+    findBooksByTitleButton.on("click", function () {
+        findBooksByTitleDiv.toggleClass("showDetails");
+        showBooksByTitle();
+
+    })
 });
 
 function showBooksTable(urlAddress) {
@@ -425,5 +433,28 @@ function insertBookDetailIntoForm(bookID) {
         alert("Cannot connect to server");
 
     });
+
+}
+
+function showBooksByTitle() {
+    findBooksByTitleDiv.append($("<form method=\"get\">" +
+        "<label for=\"searchByTitle\">Enter text to search: </label>" +
+        "<input type=\"text\" name=\"searchByTitle\" id=\"searchByTitle\">" +
+        "<input type=\"submit\" value=\"Search\" id=\"searchByTitleSubmit\">" +
+        "</form>"))
+
+    $("#searchByTitleSubmit").on("click", function (event) {
+        event.preventDefault();
+        const searchInput = $("#searchByTitle").val();
+        if (searchInput === null || searchInput === "") {
+            alert("There is no input to check");
+        } else {
+            showBooksTable("http://localhost:8080/ebm/book/searchBooksByInput/" + searchInput);
+
+        }
+
+
+    })
+
 
 }

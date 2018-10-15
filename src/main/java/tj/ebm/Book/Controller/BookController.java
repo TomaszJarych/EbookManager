@@ -51,26 +51,35 @@ public class BookController {
 				.findAllBooksByOwnerId(sessionData.getLoggedUser().getId()));
 	}
 
+	@GetMapping(path = "/searchBooksByInput/{input}", produces = APPLICATION_JSON_UTF8_VALUE)
+	public Result getAllBooksByTitleContains(
+			@PathVariable("input") String input) {
+		if (sessionData.getLoggedUser().getId() == null) {
+			return Result.error("There is no logged in User");
+		}
+
+		if (input == null || input == "") {
+			return Result.error("There is no input to check");
+		}
+		return Result.ok(bookService.findAllBooksByTitleContains(input,
+				sessionData.getLoggedUser().getId()));
+	}
+
 	@GetMapping(path = "/{id}", produces = APPLICATION_JSON_UTF8_VALUE)
 	public Result getBookById(@PathVariable("id") Long id) {
 		return Result.ok(bookService.findById(id));
 	}
 
-	@GetMapping(path = "/booksByAuthorsId", produces = APPLICATION_JSON_UTF8_VALUE)
-	public Result getBooksByAuthorsId() {
-		if (sessionData.getLoggedUser().getId() == null) {
-			return Result.error("There is no logged in User");
-		}
-		return Result.ok(bookService
-				.findAllBooksByAuthorsId(sessionData.getLoggedUser().getId()));
+	@GetMapping(path = "/booksByAuthorsId/{id}", produces = APPLICATION_JSON_UTF8_VALUE)
+	public Result getBooksByAuthorsId(@PathVariable("id") Long id) {
+		return Result.ok(bookService.findAllBooksByAuthorsId(id));
 	}
-	@GetMapping(path = "/booksByGenresId", produces = APPLICATION_JSON_UTF8_VALUE)
-	public Result getBooksByGenresId() {
+	@GetMapping(path = "/booksByGenresId/{id}", produces = APPLICATION_JSON_UTF8_VALUE)
+	public Result getBooksByGenresId(@PathVariable("id") Long id) {
 		if (sessionData.getLoggedUser().getId() == null) {
 			return Result.error("There is no logged in User");
 		}
-		return Result.ok(bookService
-				.findAllBooksByGenresId(sessionData.getLoggedUser().getId()));
+		return Result.ok(bookService.findAllBooksByGenresId(id));
 	}
 
 	@GetMapping(path = "/booksByGenres", produces = APPLICATION_JSON_UTF8_VALUE, consumes = APPLICATION_JSON_UTF8_VALUE)

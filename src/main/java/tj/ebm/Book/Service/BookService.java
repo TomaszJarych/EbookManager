@@ -2,6 +2,8 @@ package tj.ebm.Book.Service;
 
 import java.util.List;
 
+import org.springframework.data.repository.query.Param;
+
 import tj.ebm.Book.dto.BookDto;
 import tj.ebm.Commons.ServiceInterface.BaseCrudService;
 import tj.ebm.Genre.dto.GenreDto;
@@ -23,4 +25,6 @@ public interface BookService extends BaseCrudService<BookDto, Long> {
 	List<BookDto> findAllBooksByOwnerIdOrderByCreatedDesc(Long id);
 
 	List<BookDto> findAllBooksByOwnerId(Long id);
+
+	List<BookDto> findAllBooksByTitleContains(String input, Long id);
 }
