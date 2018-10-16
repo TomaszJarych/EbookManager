@@ -3,6 +3,7 @@ package tj.ebm.Commons.ExceptionHandler;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.http.MediaType;
+import org.springframework.mail.MailException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(value = EntityNotFoundException.class)
 	@ResponseBody
 	private Result entityNotFoundError() {
-		return Result.error("EntityNotFound!!!");
+		return Result.error("EntityNotFound!");
 	}
+
+	@ExceptionHandler(value = MailException.class)
+	@ResponseBody
+	private Result MailExceptionError() {
+		return Result.error("Cannont send the email. Please try again later");
+	}
+
 }

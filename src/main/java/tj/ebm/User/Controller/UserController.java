@@ -2,6 +2,8 @@ package tj.ebm.User.Controller;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 
+import java.util.stream.Collectors;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,5 +108,15 @@ public class UserController {
 		} else {
 			return Result.error("You have no permission to change privilages");
 		}
+	}
+	@GetMapping(path = "/getRecieversList", produces = APPLICATION_JSON_UTF8_VALUE)
+	public Result getRecieversList() {
+		if (sessionData.getLoggedUser().getId() == null) {
+			return Result.error("There is no logged in User");
+		}
+		return Result.ok(userService.getAll().stream()
+				.filter(el -> el.getId() != sessionData.getLoggedUser().getId())
+				.collect(Collectors.toList()));
+
 	}
 }

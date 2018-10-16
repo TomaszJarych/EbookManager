@@ -46,6 +46,6 @@ public class MailSenderController {
 				+ " have sent you messeage: \n " + mail.getContent();
 		emailSender.sendEmail(mail.getReciever(), mail.getSubject(), content);
 
-		return Result.ok("Mail has been sent");
+		return Result.ok("OK");
 	}
 }

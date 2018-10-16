@@ -10,6 +10,4 @@ public class EbookManagerApplication {
 		SpringApplication.run(EbookManagerApplication.class, args);
 	}
 
-	// TODO add ratings to BookEntity;
-
 }

@@ -118,10 +118,11 @@ public class BookServiceImpl implements BookService {
 	public List<BookDto> findAllBooksByOwnerId(Long id) {
 		return toBookDtoList(bookRepository.findAllBooksByOwnerId(id));
 	}
-	
+
 	@Override
 	public List<BookDto> findAllBooksByTitleContains(String input, Long id) {
-		return toBookDtoList(bookRepository.findAllBooksByTitleContains(input, id));
+		return toBookDtoList(
+				bookRepository.findAllBooksByTitleContains(input, id));
 	}
 
 	private List<BookDto> toBookDtoList(List<Book> list) {
