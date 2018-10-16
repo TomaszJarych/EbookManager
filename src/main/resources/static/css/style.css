@@ -1,3 +1,11 @@
 .showDetails {
     display: none;
 }
+
+.bgIndex {
+    background-image: url(../img/indexImg.jpg);
+}
+
+.registerImg{
+    background-image: url(../img/registerImg.jpg);
+}
