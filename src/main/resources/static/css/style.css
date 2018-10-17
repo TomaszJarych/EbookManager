@@ -6,6 +6,54 @@
     background-image: url(../img/indexImg.jpg);
 }
 
-.registerImg{
+.registerImg {
     background-image: url(../img/registerImg.jpg);
+}
+
+.homePageImg {
+    background-image: url(../img/homePage.jpg);
+}
+
+.table-dark {
+    background-color: hsl(0, 1%, 21%);
+    color: white;
+}
+
+.btnIndex {
+    color: black;
+    -webkit-transition-duration: 0.4s;
+    /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+    border-color: black;
+}
+
+.btnIndex:hover {
+    background-color: #555555;
+    color: white;
+}
+
+th {
+    align-content: center;
+    text-align: center;
+}
+
+h1 {
+    color: #111;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 64px;
+    margin: 0 0 0;
+    padding: 20px 30px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.line {
+    border-top: 3px solid #111;
+    display: block;
+    margin-top: 5px;
+    padding-top: 5px;
+    position: relative;
 }

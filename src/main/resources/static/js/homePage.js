@@ -46,7 +46,7 @@ function showBooksTable(urlAddress) {
     }).done(function (json) {
         booksTableDiv.html("");
 
-        booksTableDiv.append($("<table id=\"table\" border=\"1\">" +
+        booksTableDiv.append($("<table id=\"table\" class=\"table table-dark\">" +
             "<tr><th>Title</th><th>Authors</th><th>ISBN</th><th>Bookstore</th><th>Owner</th><th>Is Read?</th><th>Mark as Read</th>" +
             "<th>In Reader?</th><th>Is in Reader?</th>" +
             "<th colspan=\"3\">Actions</th>" +
@@ -60,12 +60,12 @@ function showBooksTable(urlAddress) {
                 "<td>" + book.bookstore.name + "</td>" +
                 "<td>" + book.owner.firstName + " " + book.owner.lastName + "</td>" +
                 "<td>" + isRead(book.isRead) + "</td>" +
-                "<td>" + "<button id=\"markAsRead" + book.id + "\">" + getMarkAsReadButton(book.isRead) + "</button>" + "</td>" +
+                "<td>" + "<button id=\"markAsRead" + book.id + "\"   class=\"btn btn-dark active btnIndex \" >" + getMarkAsReadButton(book.isRead) + "</button>" + "</td>" +
                 "<td>" + inReader(book.inReader) + "</td>" +
-                "<td>" + "<button id=\"markIsInReader" + book.id + "\">" + markIsInReader(book.inReader) + "</button>" + "</td>" +
-                "<td>" + "<button id=\"showBookDetail" + book.id + "\">Show book details </button></td>" +
-                "<td>" + "<button id=\"editBook" + book.id + "\">Edit book </button></td>" +
-                "<td>" + "<button id=\"deleteBook" + book.id + "\">Delete book </button></td>" +
+                "<td>" + "<button id=\"markIsInReader" + book.id + "\"  class=\"btn btn-dark active btnIndex \" >" + markIsInReader(book.inReader) + "</button>" + "</td>" +
+                "<td>" + "<div class=\" btn-group\" role=\"group\" aria-label=\"Basic example\"><button class=\"btn btn-dark btnIndex \" id=\"showBookDetail" + book.id + "\">Show book details </button></td>" +
+                "<td>" + "<button id=\"editBook" + book.id + "\" class=\"btn btn-dark active btnIndex\">Edit book </button></td>" +
+                "<td>" + "<button id=\"deleteBook" + book.id + "\" class=\"btn btn-dark active btnIndex \">Delete book </button></td><div>" +
                 "</tr>"));
 
             $("#markAsRead" + book.id).on("click", {
@@ -437,11 +437,12 @@ function insertBookDetailIntoForm(bookID) {
 }
 
 function showBooksByTitle() {
-    findBooksByTitleDiv.append($("<form method=\"get\">" +
+    findBooksByTitleDiv.html("");
+    findBooksByTitleDiv.append($("<div><br><form method=\"get\">" +
         "<label for=\"searchByTitle\">Enter text to search: </label>" +
         "<input type=\"text\" name=\"searchByTitle\" id=\"searchByTitle\">" +
-        "<input type=\"submit\" value=\"Search\" id=\"searchByTitleSubmit\">" +
-        "</form>"))
+        "<input type=\"submit\" value=\"Search\" id=\"searchByTitleSubmit\" class=\"btn btn-dark active btnIndex \">" +
+        "</form></div>"))
 
     $("#searchByTitleSubmit").on("click", function (event) {
         event.preventDefault();
