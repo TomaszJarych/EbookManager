@@ -25,9 +25,9 @@ function showAllAuthors() {
         table.html("<tr><th>First Name</th><th>Last Name</th><th colspan=\"3\">Detail</th></tr>");
         for (let author of json["data"]) {
             table.append($("<tr><td>" + author.firstName + "</td><td>" + author.lastName +
-                "</td><td><button id=\"authorID" + author.id + "\">Show books </button></td>" +
-                "<td><button id=\"deleteAuthorById" + author.id + "\">Delete Author </button></td>" +
-                "<td><button id=\"editAuthorById" + author.id + "\">Edit Author </button></td></tr>"));
+                "</td><td><button id=\"authorID" + author.id + "\" class=\"btn btn-dark active btnIndex \">Show books </button></td>" +
+                "<td><button id=\"deleteAuthorById" + author.id + "\" class=\"btn btn-dark active btnIndex \">Delete Author </button></td>" +
+                "<td><button id=\"editAuthorById" + author.id + "\"  class=\"btn btn-dark active btnIndex \">Edit Author </button></td></tr>"));
             $("#authorID" + author.id).on("click", {
                 id: author.id
             }, function (event) {
@@ -132,7 +132,7 @@ function showEditForm(authorId) {
     editAuthorDiv.append($("<form method=\"post\"><div><label for=\"firstName\">First name:</label>" +
         "<input type=\"text\" name=\"firstName\" id=\"firstName\"></div><br>" +
         "<div><label for=\"lastName\">Last name:</label><input type=\"text\" name=\"lastName\" id=\"lastName\"></div><br>" +
-        "<div><input type=\"hidden\" name=\"id\" id=\"id\"><input type=\"submit\" id=\"subimtButton\" value=\"Register\"></div></form>"));
+        "<div><input type=\"hidden\" name=\"id\" id=\"id\"><input class=\"btn btn-dark active btnIndex \" type=\"submit\" id=\"subimtButton\" value=\"Register\"></div></form>"));
     editAuthorDiv.toggleClass("showDetails")
     getAuthorById(authorId);
 
@@ -179,14 +179,18 @@ function addNewAuthor(authorId, authorFirstName, authorLastName) {
     }).done(function (json) {
         if (json["message"] !== "OK") {
             let data = json["data"];
-            let errorsDiv = $("#errors");
+            let errorsDiv = $("#newAuthorsErrors");
             let errorsFromServer = json["error"].split(";");
             errorsDiv.html("");
             for (let error of errorsFromServer) {
                 errorsDiv.append($('<h3>' + error + '</h3>'));
+
             }
         } else {
-            location.href = "authors.html"
+            editAuthorDiv.html("");
+            editAuthorDiv.toggleClass("showDetails");
+            showAllAuthors();
+
         }
     }).fail(function () {
         alert("Cannot connect to server");
@@ -194,10 +198,10 @@ function addNewAuthor(authorId, authorFirstName, authorLastName) {
 }
 
 function showAddForm() {
-    editAuthorDiv.append($("<form method=\"post\"><div><label for=\"firstName\">First name:</label>" +
+    editAuthorDiv.append($("<div id=\"newAuthorsErrors\"><form method=\"post\"><div><label for=\"firstName\">First name:</label>" +
         "<input type=\"text\" name=\"firstName\" id=\"firstName\"></div><br>" +
         "<div><label for=\"lastName\">Last name:</label><input type=\"text\" name=\"lastName\" id=\"lastName\"></div><br>" +
-        "<div><input type=\"hidden\" name=\"id\" id=\"id\"><input type=\"submit\" id=\"subimtButton\" value=\"Register\"></div></form>"));
+        "<div><input type=\"hidden\" name=\"id\"  id=\"id\"><input type=\"submit\" id=\"subimtButton\"  class=\"btn btn-dark active btnIndex \" value=\"Register\"></div></form>"));
     editAuthorDiv.toggleClass("showDetails")
 
 
@@ -205,14 +209,11 @@ function showAddForm() {
     const firstNameInput = $("#firstName");
     const lastNameInput = $("#lastName");
     const idInput = $("#id");
-    const errorsDiv = $("#errors");
+    const errorsDiv = $("#newAuthorsErrors");
 
     submitButton.on("click", function (event) {
         event.preventDefault();
         addNewAuthor(idInput.val(), firstNameInput.val(), lastNameInput.val());
-        editAuthorDiv.html("");
-        editAuthorDiv.toggleClass("showDetails");
-        showAllAuthors();
     })
 
 }

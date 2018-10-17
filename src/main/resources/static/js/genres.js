@@ -25,9 +25,9 @@ function showAllGenres() {
         genresTable.html("<tr><th>Name</th><th>Description</th><th colspan=\"3\">Detail</th></tr></tr>");
         for (const genre of json["data"]) {
             genresTable.append($("<tr><td>" + genre.name + "</td><td>" + genre.description + "</td>" +
-                "<td><button id=\"showBooksByGenre" + genre.id + "\">Show books </button></td>" +
-                "<td><button id=\"deleteGenreById" + genre.id + "\">Delete genre </button></td>" +
-                "<td><button id=\"editGenreById" + genre.id + "\">Edit Author </button></td>" +
+                "<td><button class=\"btn btn-dark active btnIndex \" id=\"showBooksByGenre" + genre.id + "\">Show books </button></td>" +
+                "<td><button class=\"btn btn-dark active btnIndex \" id=\"deleteGenreById" + genre.id + "\">Delete genre </button></td>" +
+                "<td><button class=\"btn btn-dark active btnIndex \" id=\"editGenreById" + genre.id + "\">Edit Genre </button></td>" +
 
                 "</tr>"
             ));
@@ -83,7 +83,7 @@ function showAddForm() {
     newGenreForm.append($("<div id=\"newGenreErrors\"></div><h2>New genre</h2><form method=\"post\"><div><label for=\"genreName\">Name</label>" +
         "<input type=\"text\" name=\"genreName\" id=\"genreName\"></div><br>" +
         "<div><label for=\"genreDescription\">Description:</label><input type=\"text\" name=\"genreDescription\" id=\"genreDescription\"></div><br>" +
-        "<div><input type=\"hidden\" name=\"id\" id=\"id\"><input type=\"submit\" id=\"subimtButton\" value=\"Register\"></div></form>"));
+        "<div><input type=\"hidden\" name=\"id\" id=\"id\"><input class=\"btn btn-dark active btnIndex \" type=\"submit\" id=\"subimtButton\" value=\"Register\"></div></form>"));
     newGenreForm.toggleClass("showDetails")
 
 
@@ -153,7 +153,7 @@ function showEditGenreForm(id) {
     editGenreForm.append($("<div id=\"editGenreErrors\"></div><h2>Edit genre</h2><form method=\"post\"><div><label for=\"genreName\">Name</label>" +
         "<input type=\"text\" name=\"genreName\" id=\"genreName\"></div><br>" +
         "<div><label for=\"genreDescription\">Description:</label><input type=\"text\" name=\"genreDescription\" id=\"genreDescription\"></div><br>" +
-        "<div><input type=\"hidden\" name=\"id\" id=\"genreId\"><input type=\"submit\" id=\"subimtButton\" value=\"Register\"></div></form>"));
+        "<div><input type=\"hidden\" name=\"id\" id=\"genreId\"><input class=\"btn btn-dark active btnIndex \" type=\"submit\" id=\"subimtButton\" value=\"Register\"></div></form>"));
 
     const submitButton = $("#subimtButton");
     const genreName = $("#genreName");

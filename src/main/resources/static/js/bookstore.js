@@ -19,7 +19,7 @@ function showAllBookstores() {
         dataType: "json"
     }).done(function (json) {
         bookstoreList.html("");
-        bookstoreList.append($("<table id=\"table\" border=\"1\">" +
+        bookstoreList.append($("<table class=\"table table-dark\" id=\"table\" border=\"1\">" +
             "<tr><th>Name</th><th>Email</th><th colspan=\"2\">WEB</th><th colspan=\"2\">Actions</th>" +
             "</tr></table>"));
 
@@ -29,9 +29,9 @@ function showAllBookstores() {
                 "<td>" + bookstore.name + "</td>" +
                 "<td>" + bookstore.email + "</td>" +
                 "<td>" + bookstore.web + "</td>" +
-                "<td>" + "<button id=\"webLink" + bookstore.id + "\">Go to the bookstore's page </button></td>" +
-                "<td>" + "<button id=\"editBookstore" + bookstore.id + "\">Edit Bookstore </button></td>" +
-                "<td>" + "<button id=\"deleteBookstore" + bookstore.id + "\">Delete Bookstore </button></td>" +
+                "<td>" + "<button class=\"btn btn-dark active btnIndex \" id=\"webLink" + bookstore.id + "\">Go to the bookstore's page </button></td>" +
+                "<td>" + "<button class=\"btn btn-dark active btnIndex \" id=\"editBookstore" + bookstore.id + "\">Edit Bookstore </button></td>" +
+                "<td>" + "<button class=\"btn btn-dark active btnIndex \" id=\"deleteBookstore" + bookstore.id + "\">Delete Bookstore </button></td>" +
                 "</tr>"));
 
 
@@ -85,7 +85,7 @@ function showBookstoreForm() {
         "<label for=\"email\">EMAIL: </label><input type=\"email\" name=\"email\" id=\"email\"></div><br>" +
         "<div><label for=\"web\">WEB: </label><input type=\"url\" name=\"web\" id=\"web\">" +
         "</div><br><input type=\"hidden\" name=\"id\" id=\"id\">" +
-        "<div><input type=\"submit\" id=\"subimtButton\" value=\"Add\"> <button id=\"close\">Close </button></div></form>"));
+        "<div><input type=\"submit\" class=\"btn btn-dark active btnIndex \" id=\"subimtButton\" value=\"Add\"> <button class=\"btn btn-dark active btnIndex \" id=\"close\">Close </button></div></form>"));
 
 
     $("#subimtButton").on("click", function (event) {

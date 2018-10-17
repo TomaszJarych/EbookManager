@@ -14,7 +14,7 @@ function showMessageForm() {
         "<label for=\"subject\">Subject </label><input type=\"text\" name=\"subject\" id=\"subject\"></div><br></div>" +
         "<div><label for=\"content\">Content </label><textarea rows=\"8\" cols=\"70\" name=\"content\" id=\"content\"/></div><br></div><br>" +
         "<div><label for=\"reciever\">Reciever </label><select rows=\"8\" cols=\"70\" name=\"reciever\" id=\"reciever\"><option value=\"\">Select reciever from the list</option></select></div><br></div>" +
-        "<div><input type=\"submit\" id=\"subimtButton\" value=\"Send\"></div>" +
+        "<div><input type=\"submit\" id=\"subimtButton\" class=\"btn btn-dark active btnIndex btn-lg\" value=\"Send\"></div>" +
         "</form><br>"));
 
 

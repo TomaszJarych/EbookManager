@@ -4,10 +4,18 @@
 
 .bgIndex {
     background-image: url(../img/indexImg.jpg);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .registerImg {
     background-image: url(../img/registerImg.jpg);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .homePageImg {
@@ -18,9 +26,44 @@
     background-size: cover;
 }
 
+.authorImg {
+    background: url(../img/author4.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.genresImg {
+    background: url(../img/genres.jpeg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.bookstoreImg {
+    background: url(../img/bookstore1.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.sendMessageImg {
+    background: url(../img/message2.jpeg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+
+
 .table-dark {
     background-color: hsl(0, 1%, 21%);
     color: white;
+    background-color: rgba(15, 15, 10, .9);
 }
 
 .btnIndex {
@@ -52,6 +95,12 @@ th {
     padding: 20px 30px;
     text-align: center;
     text-transform: uppercase;
+    background-color: rgba(15, 15, 10, .9);
+    color: white;
+}
+
+.genreHeader {
+    color: white;
 }
 
 .line {
@@ -72,7 +121,23 @@ th {
     color: white;
 }
 
-input[type=text],input[type=password],input[type=email],
+.bookstoreFormDiv {
+    display: inline-flex;
+    margin: auto;
+    color: white;
+    border: 2px;
+    border-color: black;
+    border-radius: 5px;
+    background-color: rgba(15, 15, 10, .5);
+    width: 600px;
+    position: relative;
+
+}
+
+input[type=text],
+input[type=password],
+input[type=email],
+input[type=url],
 select,
 textarea {
     width: 100%;
@@ -112,13 +177,13 @@ label {
     flex: 1;
 }
 
-#bookDetailsDiv{
+#bookDetailsDiv {
     float: right;
     align-self: auto;
 
 }
 
-.bookDetailsList{
+.bookDetailsList {
     border: 1px solid;
     border-color: white;
     border-radius: 5px;
@@ -135,7 +200,7 @@ label {
     background-color: rgba(15, 15, 10, .9);
 }
 
-#findBooksByTitleDiv{
+#findBooksByTitleDiv {
     float: left;
     align-self: auto;
 }
