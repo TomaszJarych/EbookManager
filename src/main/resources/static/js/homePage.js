@@ -214,14 +214,14 @@ function showBooksTable(urlAddress) {
             const bookDetail = json["data"];
             bookDetailsDiv.toggleClass("showDetails");
             bookDetailsDiv.html("");
-            bookDetailsDiv.append($("<div><h3>Authors</h3><h4>" + getAuthors(bookDetail.authors) + "</h4></div>"));
-            bookDetailsDiv.append($("<div><h3>Title</h3><h4>\"" + bookDetail.title + "\"</h4></div>"));
-            bookDetailsDiv.append($("<div><h3>Bookstore</h3><h4>" + bookDetail.bookstore.name + "</h4></div>"));
-            bookDetailsDiv.append($("<div><h3>ISBN</h3><h4>" + bookDetail.isbn + "</h4></div>"));
-            bookDetailsDiv.append($("<div><h3>Genres</h3><h4>" + getGenres(bookDetail.genres) + "</h4></div>"));
-            bookDetailsDiv.append($("<div><h3>Owner</h3><h4>" + bookDetail.owner.firstName + " " + bookDetail.owner.lastName + "</h4></div>"));
-            bookDetailsDiv.append($("<div><h3>Created</h3><h4>" + new Date(bookDetail.created).toLocaleString() + "</h4></div>"));
-            bookDetailsDiv.append($("<div><button id=\"close\">Close </button></div>"));
+            bookDetailsDiv.append($("<div class=\"bookDetailsList\"><h3>Authors</h3><hr><h4>" + getAuthors(bookDetail.authors) + "</h4></div>"));
+            bookDetailsDiv.append($("<div class=\"bookDetailsList\"><h3>Title</h3><hr><h4>\"" + bookDetail.title + "\"</h4></div>"));
+            bookDetailsDiv.append($("<div class=\"bookDetailsList\"><h3>Bookstore</h3><hr><h4>" + bookDetail.bookstore.name + "</h4></div>"));
+            bookDetailsDiv.append($("<div class=\"bookDetailsList\"><h3>ISBN</h3><hr><h4>" + bookDetail.isbn + "</h4></div>"));
+            bookDetailsDiv.append($("<div class=\"bookDetailsList\"><h3>Genres</h3><hr><h4>" + getGenres(bookDetail.genres) + "</h4></div>"));
+            bookDetailsDiv.append($("<div class=\"bookDetailsList\"><h3>Owner</h3><hr><h4>" + bookDetail.owner.firstName + " " + bookDetail.owner.lastName + "</h4></div>"));
+            bookDetailsDiv.append($("<div class=\"bookDetailsList\"><h3>Created</h3><hr><h4>" + new Date(bookDetail.created).toLocaleString() + "</h4></div>"));
+            bookDetailsDiv.append($("<div><button id=\"close\" class=\"btn btn-dark active btnIndex btn-lg btnCloseHomePage\">Close </button></div>"));
 
             $("#close").on("click", function () {
                 bookDetailsDiv.toggleClass("showDetails");
@@ -246,14 +246,14 @@ function showBooksTable(urlAddress) {
 
 function showAddNewBookForm() {
     addNewBookForm.html("");
-    addNewBookForm.append($("<div><h1>Add new Book</h1></div><div id=\"newBookErrors\"></div><form id=\"newBookForm\" method=\"post\"><div><label for=\"title\">Title:</label>" +
+    addNewBookForm.append($("<div><h1>Add new Book</h1></div><div id=\"newBookErrors\"></div><div><form id=\"newBookForm\" method=\"post\"><label for=\"title\">Title:</label>" +
         "<input type=\"text\" name=\"title\" id=\"title\"></div><br><div>" +
         "<label for=\"isbn\">ISBN:</label><input type=\"text\" name=\"isbn\" id=\"isbn\">" +
-        "</div><br><input type=\"hidden\" name=\"id\" id=\"id\">" +
+        "</div><br><div><input type=\"hidden\" name=\"id\" id=\"id\"></div>" +
         "<div><label for=\"genres\">Genres: </label><select name=\"genres\" multiple=\"multiple\" id=\"genres\"></select></div><br>" +
-        "<div><label for=\"bookstore\">Bookstore </label><select name=\"bookstore\" id=\"bookstore\"></select></div><br></br>" +
-        "<div><label for=\"authors\">Authors: </label><select name=\"authors\" multiple=\"multiple\" id=\"authors\"></select></div><br>" +
-        "<input type=\"submit\" id=\"subimtButton\" value=\"Add\"></div></form>"));
+        "<div><label for=\"bookstore\">Bookstore </label><select name=\"bookstore\" id=\"bookstore\"></select></div></br>" +
+        "<div><label for=\"authors\">Authors: </label><select name=\"authors\" multiple=\"multiple\" id=\"authors\"></select>" +
+        "<br><br><input type=\"submit\" id=\"subimtButton\" value=\"Add\" class=\"btn btn-dark active btnIndex btn-lg btnSubmitHomePage\"></form>"));
 
     getGenresFromDB();
     getBookstoreFromDB();
@@ -438,11 +438,16 @@ function insertBookDetailIntoForm(bookID) {
 
 function showBooksByTitle() {
     findBooksByTitleDiv.html("");
-    findBooksByTitleDiv.append($("<div><br><form method=\"get\">" +
+    findBooksByTitleDiv.append($("<br><div class=\"formDiv\"><br><form method=\"get\">" +
         "<label for=\"searchByTitle\">Enter text to search: </label>" +
         "<input type=\"text\" name=\"searchByTitle\" id=\"searchByTitle\">" +
-        "<input type=\"submit\" value=\"Search\" id=\"searchByTitleSubmit\" class=\"btn btn-dark active btnIndex \">" +
-        "</form></div>"))
+        "<input type=\"submit\" value=\"Search\" id=\"searchByTitleSubmit\" class=\"btn btn-dark active btnIndex  btn-lg\">" +
+        "</form><button id=\"closeSearch\" class=\"btn btn-dark active btnIndex btn-lg btnSubmitHomePage\">Close </button></div></div>"))
+
+    $("#closeSearch").on("click", function () {
+        findBooksByTitleDiv.toggleClass("showDetails");
+        findBooksByTitleDiv.html("");
+    });
 
     $("#searchByTitleSubmit").on("click", function (event) {
         event.preventDefault();

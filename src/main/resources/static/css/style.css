@@ -11,7 +11,11 @@
 }
 
 .homePageImg {
-    background-image: url(../img/homePage.jpg);
+    background: url(../img/homePage.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .table-dark {
@@ -22,10 +26,10 @@
 .btnIndex {
     color: black;
     -webkit-transition-duration: 0.4s;
-    /* Safari */
     transition-duration: 0.4s;
     cursor: pointer;
     border-color: black;
+    float: left;
 }
 
 .btnIndex:hover {
@@ -38,7 +42,7 @@ th {
     text-align: center;
 }
 
-h1 {
+.h1Header {
     color: #111;
     font-family: 'Open Sans Condensed', sans-serif;
     font-size: 64px;
@@ -56,4 +60,82 @@ h1 {
     margin-top: 5px;
     padding-top: 5px;
     position: relative;
+}
+
+.formDiv {
+    border: 2px solid;
+    border-color: black;
+    border-radius: 5px;
+    width: 600px;
+    margin: auto;
+    background-color: rgba(15, 15, 10, .5);
+    color: white;
+}
+
+input[type=text],input[type=password],input[type=email],
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    color: black;
+}
+
+label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+}
+
+.btnSubmitHomePage {
+    position: sticky;
+}
+
+#bookDetailsDiv {
+    border: 2px solid;
+    border-color: black;
+    border-radius: 5px;
+    width: 600px;
+    margin: auto;
+    background-color: rgba(15, 15, 10, .5);
+    color: white;
+}
+
+.homePageShowDiv {
+    display: inline-flex;
+
+}
+
+.containerHomePage {
+    align-self: auto;
+    flex: 1;
+}
+
+#bookDetailsDiv{
+    float: right;
+    align-self: auto;
+
+}
+
+.bookDetailsList{
+    border: 1px solid;
+    border-color: white;
+    border-radius: 5px;
+    margin: auto;
+    background-color: rgba(15, 15, 10, .5);
+    text-align: center;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    cursor: pointer;
+
+}
+
+.bookDetailsList:hover {
+    background-color: rgba(15, 15, 10, .9);
+}
+
+#findBooksByTitleDiv{
+    float: left;
+    align-self: auto;
 }
