@@ -57,6 +57,13 @@
     -o-background-size: cover;
     background-size: cover;
 }
+.adminImg {
+    background: url(../img/admin2.jpeg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
 
 
 
@@ -203,4 +210,18 @@ label {
 #findBooksByTitleDiv {
     float: left;
     align-self: auto;
+}
+
+h2 {
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 64px;
+    margin: 0 0 0;
+    padding: 20px 30px;
+    text-align: center;
+    text-transform: uppercase;
+    background-color: rgba(15, 15, 10, .9);
+    color: white;
+
 }

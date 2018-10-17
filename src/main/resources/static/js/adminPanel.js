@@ -54,7 +54,7 @@ function showAllBookstoresFromDB() {
         dataType: "json"
     }).done(function (json) {
         showAllBookstores.html("");
-        showAllBookstores.append($("<h2>Bookstores</h2><table id=\"table\" border=\"1\">" +
+        showAllBookstores.append($("<h2>Bookstores</h2><table class=\"table table-dark\" id=\"table\" border=\"1\">" +
             "<tr><th>Name</th><th>Email</th><th>WEB</th><th colspan=\"2\">Actions</th>" +
             "</tr></table>"));
 
@@ -63,8 +63,8 @@ function showAllBookstoresFromDB() {
                 "<tr>" +
                 "<td>" + bookstore.name + "</td>" +
                 "<td>" + bookstore.email + "</td>" +
-                "<td>" + "<button id=\"webLink" + bookstore.id + "\">Go to the bookstore's page </button></td>" +
-                "<td>" + "<button id=\"deleteBookstore" + bookstore.id + "\">Delete Bookstore </button></td>" +
+                "<td>" + "<button  class=\"btn btn-dark active btnIndex \" id=\"webLink" + bookstore.id + "\">Go to the bookstore's page </button></td>" +
+                "<td>" + "<button  class=\"btn btn-dark active btnIndex \" id=\"deleteBookstore" + bookstore.id + "\">Delete Bookstore </button></td>" +
                 "</tr>"));
 
 
@@ -110,10 +110,10 @@ function showAllAuthors() {
         dataType: "json"
     }).done(function (json) {
         showAllAuthorsDiv.html("");
-        showAllAuthorsDiv.html("<h2>Authors</h2><table id=\"authorsTable\" border=\"1\"><tr><th>First Name</th><th>Last Name</th><th colspan=\"3\">Detail</th></tr></table>");
+        showAllAuthorsDiv.html("<h2>Authors</h2><table class=\"table table-dark\" id=\"authorsTable\" border=\"1\"><tr><th>First Name</th><th>Last Name</th><th colspan=\"3\">Detail</th></tr></table>");
         for (let author of json["data"]) {
             $("#authorsTable").append($("<tr><td>" + author.firstName + "</td><td>" + author.lastName +
-                "<td><button id=\"deleteAuthorById" + author.id + "\">Delete Author </button></td>"
+                "<td><button class=\"btn btn-dark active btnIndex \" id=\"deleteAuthorById" + author.id + "\">Delete Author </button></td>"
             ));
             $("#deleteAuthorById" + author.id).on("click", {
                 id: author.id
@@ -153,10 +153,10 @@ function showAllGenres() {
         type: "GET",
         dataType: "json"
     }).done(function (json) {
-        showAllGenresDiv.html("<h2>Genres</h2><table id=\"genrestable\" border=\"1\"><tr><th>Name</th><th>Description</th><th colspan=\"1\">Actions</th></tr></tr></table>");
+        showAllGenresDiv.html("<h2>Genres</h2><table class=\"table table-dark\" id=\"genrestable\" border=\"1\"><tr><th>Name</th><th>Description</th><th colspan=\"1\">Actions</th></tr></tr></table>");
         for (const genre of json["data"]) {
             $("#genrestable").append($("<tr><td>" + genre.name + "</td><td>" + genre.description + "</td>" +
-                "<td><button id=\"deleteGenreById" + genre.id + "\">Delete genre </button></td>" +
+                "<td><button class=\"btn btn-dark active btnIndex \" id=\"deleteGenreById" + genre.id + "\">Delete genre </button></td>" +
                 "</tr>"
             ));
             $("#deleteGenreById" + genre.id).on("click", {
@@ -199,7 +199,7 @@ function showBooksTable() {
     }).done(function (json) {
         showAllBooksDiv.html("");
 
-        showAllBooksDiv.append($("<table id=\"booksTable\" border=\"1\">" +
+        showAllBooksDiv.append($("<h2>Books</h2><table class=\"table table-dark\" id=\"booksTable\" border=\"1\">" +
             "<tr><th>Title</th><th>Authors</th><th>ISBN</th><th>Bookstore</th><th>Owner</th><th>Is Read?</th><th>Mark as Read</th>" +
             "<th>In Reader?</th><th>Is in Reader?</th>" +
             "<th colspan=\"3\">Actions</th>" +
@@ -213,10 +213,10 @@ function showBooksTable() {
                 "<td>" + book.bookstore.name + "</td>" +
                 "<td>" + getName(book.owner)+"</td>" +
                 "<td>" + isRead(book.isRead) + "</td>" +
-                "<td>" + "<button id=\"markAsRead" + book.id + "\">" + getMarkAsReadButton(book.isRead) + "</button>" + "</td>" +
+                "<td>" + "<button class=\"btn btn-dark active btnIndex \" id=\"markAsRead" + book.id + "\">" + getMarkAsReadButton(book.isRead) + "</button>" + "</td>" +
                 "<td>" + inReader(book.inReader) + "</td>" +
-                "<td>" + "<button id=\"markIsInReader" + book.id + "\">" + markIsInReader(book.inReader) + "</button>" + "</td>" +
-                "<td>" + "<button id=\"deleteBook" + book.id + "\">Delete book </button></td>" +
+                "<td>" + "<button class=\"btn btn-dark active btnIndex \" id=\"markIsInReader" + book.id + "\">" + markIsInReader(book.inReader) + "</button>" + "</td>" +
+                "<td>" + "<button class=\"btn btn-dark active btnIndex \" id=\"deleteBook" + book.id + "\">Delete book </button></td>" +
                 "</tr>"));
 
             $("#markAsRead" + book.id).on("click", {
@@ -360,7 +360,7 @@ function showBooksTable() {
             bookDetailsDiv.append($("<div><h3>Genres</h3><h4>" + getGenres(bookDetail.genres) + "</h4></div>"));
             bookDetailsDiv.append($("<div><h3>Owner</h3><h4>" + bookDetail.owner.firstName + " " + bookDetail.owner.lastName + "</h4></div>"));
             bookDetailsDiv.append($("<div><h3>Created</h3><h4>" + new Date(bookDetail.created).toLocaleString() + "</h4></div>"));
-            bookDetailsDiv.append($("<div><button id=\"close\">Close </button></div>"));
+            bookDetailsDiv.append($("<div><button class=\"btn btn-dark active btnIndex \" id=\"close\">Close </button></div>"));
 
             $("#close").on("click", function () {
                 bookDetailsDiv.toggleClass("showDetails");
@@ -390,7 +390,7 @@ function showAllUsers() {
         dataType: "json"
     }).done(function (json) {
         showAllUsersDiv.html("");
-        showAllUsersDiv.html("<h2>Users</h2><table id=\"usersTable\" border=\"1\"><tr><th>First Name</th><th>Last Name</th><th>login</th>" +
+        showAllUsersDiv.html("<h2>Users</h2><table class=\"table table-dark\" id=\"usersTable\"  border=\"1\"><tr><th>First Name</th><th>Last Name</th><th>login</th>" +
             "<th>Email</th>" +
             "<th colspan=\"3\">Privileges</th>" +
             "<th>Actions</th>" +
@@ -402,9 +402,9 @@ function showAllUsers() {
                 "<td>" + user.login + "</td>" +
                 "<td>" + user.email + "</td>" +
                 "<td>" + user.role + "</td>" +
-                "<td>" + "<button id=\"setRoleToUser" + user.id + "\">Set privileges to USER</button></td>" +
-                "<td>" + "<button id=\"setRoleToAdmin" + user.id + "\">Set privileges to ADMIN</button></td>" +
-                "<td>" + "<button id=\"deleteUserById" + user.id + "\">Delete User</button></td></tr>"
+                "<td>" + "<button class=\"btn btn-dark active btnIndex \" id=\"setRoleToUser" + user.id + "\">Set privileges to USER</button></td>" +
+                "<td>" + "<button class=\"btn btn-dark active btnIndex \" id=\"setRoleToAdmin" + user.id + "\">Set privileges to ADMIN</button></td>" +
+                "<td>" + "<button class=\"btn btn-dark active btnIndex \" id=\"deleteUserById" + user.id + "\">Delete User</button></td></tr>"
             ));
 
             $("#setRoleToUser" + user.id).on("click", {
