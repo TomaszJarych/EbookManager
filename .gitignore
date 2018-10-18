@@ -2,6 +2,7 @@
 # Created by https://www.gitignore.io/api/java,maven,gradle,eclipse,intellij,intellij+all,intellij+iml
 
 ### Eclipse ###
+/src/main/resources/static/img/**
 
 .metadata
 bin/

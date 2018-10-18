@@ -60,9 +60,7 @@ $(document).ready(function () {
                 sessionStorage.setItem("loggedUserLogin",json["data"].login)
                 location.href = "views/homePage.html";
             } else {
-                
                 alert("Invalid password");
-
             }
 
         }).fail(function () {
