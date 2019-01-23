@@ -57,6 +57,7 @@
     -o-background-size: cover;
     background-size: cover;
 }
+
 .adminImg {
     background: url(../img/admin2.jpeg) no-repeat center center fixed;
     -webkit-background-size: cover;
@@ -64,8 +65,6 @@
     -o-background-size: cover;
     background-size: cover;
 }
-
-
 
 .table-dark {
     background-color: hsl(0, 1%, 21%);

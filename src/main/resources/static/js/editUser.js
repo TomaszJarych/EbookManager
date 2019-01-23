@@ -11,7 +11,6 @@ $(document).ready(function () {
     const errorsDiv = $("#errors");
 
 
-    
     let loggedUserId;
 
     if (sessionStorage.getItem("loggedUserId") === null || sessionStorage.getItem("loggedUserId") === "") {

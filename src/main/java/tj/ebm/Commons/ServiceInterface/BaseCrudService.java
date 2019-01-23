@@ -5,12 +5,12 @@ import java.util.List;
 
 public interface BaseCrudService<D, I extends Serializable> {
 
-	D findById(Long id);
+    D findById(Long id);
 
-	D save(D dto);
+    D save(D dto);
 
-	Boolean deleteFromDb(Long id);
+    Boolean deleteFromDb(Long id);
 
-	List<D> getAll();
+    List<D> getAll();
 
 }

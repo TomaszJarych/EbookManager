@@ -327,7 +327,8 @@ function getGenresFromDB() {
         for (const genre of json["data"]) {
             $("#genres").append($("<option value=\"" + genre.id + "\">" + genre.name + "</option>"))
 
-        };
+        }
+        ;
     }).fail(function () {
         alert("Cannot connect to server");
 
@@ -343,7 +344,8 @@ function getBookstoreFromDB() {
 
         for (const bookstore of json["data"]) {
             $("#bookstore").append($("<option value=\"" + bookstore.id + "\">" + bookstore.name + "</option>"))
-        };
+        }
+        ;
     }).fail(function () {
         alert("Cannot connect to server");
 
@@ -359,7 +361,8 @@ function getAuthorsFromDB() {
         for (const author of json["data"]) {
             $("#authors").append($("<option value=\"" + author.id + "\">" + author.firstName + " " + author.lastName + "</option>"))
 
-        };
+        }
+        ;
     }).fail(function () {
         alert("Cannot connect to server");
 

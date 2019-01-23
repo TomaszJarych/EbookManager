@@ -50,7 +50,8 @@ function showAllGenres() {
 
             })
 
-        };
+        }
+        ;
 
     }).fail(function () {
         alert("Cannot connect to server");
