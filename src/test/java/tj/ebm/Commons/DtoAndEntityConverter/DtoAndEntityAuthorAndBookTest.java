@@ -17,10 +17,13 @@ import tj.ebm.Book.dto.BookDto;
 import tj.ebm.Bookstore.Repository.BookstoreRepository;
 import tj.ebm.Bookstore.domain.Bookstore;
 import tj.ebm.Bookstore.dto.BookstoreDto;
+import tj.ebm.Commons.ENUM.UserRole;
 import tj.ebm.Genre.Repository.GenreRepository;
 import tj.ebm.Genre.domain.Genre;
 import tj.ebm.Genre.dto.GenreDto;
+import tj.ebm.User.Domain.User;
 import tj.ebm.User.Repository.UserRepository;
+import tj.ebm.User.dto.UserDto;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
@@ -62,6 +65,9 @@ public class DtoAndEntityAuthorAndBookTest {
     private String bookstoreWeb;
     private Set<Genre> genres;
     private Set<GenreDto> genresDto;
+    private User owner;
+    private UserDto ownerDto;
+    private Genre genre;
 
 
     @BeforeEach
@@ -91,7 +97,7 @@ public class DtoAndEntityAuthorAndBookTest {
                 .setEmail(bookstoreEmail)
                 .setWeb(bookstoreWeb)
                 .build();
-        Genre genre = new Genre.GenreBuilder()
+        genre = new Genre.GenreBuilder()
                 .setId(id)
                 .setName("testGenreName")
                 .setDescription("testDescription")
@@ -105,6 +111,26 @@ public class DtoAndEntityAuthorAndBookTest {
         genresDto = new HashSet<>();
         genres.add(genre);
         genresDto.add(genreDto);
+        owner = new User.UserBuilder()
+                .id(id)
+                .login("testLogin")
+                .firstName("John")
+                .lastName("Doe")
+                .email("jd@wp.pl")
+                .role(UserRole.USER)
+                .password("pass")
+                .build();
+
+        ownerDto = new UserDto.UserDtoBuilder()
+                .id(id)
+                .login("testLogin")
+                .firstName("John")
+                .lastName("Doe")
+                .email("jd@wp.pl")
+                .role(UserRole.USER)
+                .password("pass")
+                .build();
+
 
         Book book1 = new Book.BookBuilder()
                 .setId(id)
@@ -262,8 +288,8 @@ public class DtoAndEntityAuthorAndBookTest {
     }
 
     @Test
-    @DisplayName("toBookEntity() throws EntityNotFoundException")
-    void toBookEntityConverterThrowsEntityNotFoundException() {
+    @DisplayName("toAuthorEntity() throws EntityNotFoundException")
+    void toAuthorEntityConverterThrowsEntityNotFoundException() {
         //given
         AuthorDto dto = new AuthorDto.AuthorDtoBuilder()
                 .setId(id)
@@ -278,5 +304,299 @@ public class DtoAndEntityAuthorAndBookTest {
                 () -> converter.toAuthorEntity(dto));
     }
 
+    @Test
+    @DisplayName("toBookDtoConverter method test")
+    void toBookDtoConverterTest() {
+        //given
 
+        Author author = new Author.AuthorBuilder()
+                .setId(id)
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .setBooks(null)
+                .build();
+        AuthorDto authorDto = new AuthorDto.AuthorDtoBuilder()
+                .setId(id)
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .setBooks(null)
+                .build();
+        Set<Author> authors = new HashSet<>();
+        authors.add(author);
+        Set<AuthorDto> authorDtos = new HashSet<>();
+        authorDtos.add(authorDto);
+        Book book = new Book.BookBuilder()
+                .setId(id)
+                .setTitle(title)
+                .setCreated(created)
+                .setISBN(ISBN)
+                .setOwner(owner)
+                .setRead(true)
+                .setInReader(true)
+                .setBookstore(bookstore)
+                .setGenres(genres)
+                .setAuthors(authors)
+                .build();
+        BookDto expected = new BookDto.BookDtoBuilder()
+                .setId(id)
+                .setTitle(title)
+                .setCreated(created)
+                .setISBN(ISBN)
+                .setOwner(ownerDto)
+                .setRead(true)
+                .setInReader(true)
+                .setBookstore(bookstoreDto)
+                .setGenres(genresDto)
+                .setAuthors(authorDtos)
+                .build();
+
+
+        //when
+        BookDto actual = converter.toBookDto(book);
+
+        //then
+        Assertions.assertNotNull(actual);
+        assertAll("toBookDto assertions",
+                () -> assertEquals(expected.getId(), actual.getId()),
+                () -> assertEquals(expected.getISBN(), actual.getISBN()),
+                () -> assertEquals(expected.getTitle(), actual.getTitle()),
+                () -> assertEquals(expected.getCreated(), actual.getCreated()),
+                () -> assertEquals(expected.getInReader(), actual.getInReader()),
+                () -> assertEquals(expected.getIsRead(), actual.getIsRead()),
+                () -> assertEquals(expected.getOwner().getId(), actual.getOwner().getId()),
+                () -> assertEquals(expected.getOwner().getFirstName(), actual.getOwner().getFirstName()),
+                () -> assertEquals(expected.getOwner().getLastName(), actual.getOwner().getLastName()),
+                () -> assertEquals(expected.getOwner().getRole(), actual.getOwner().getRole()),
+                () -> assertEquals(expected.getOwner().getEmail(), actual.getOwner().getEmail()),
+                () -> assertEquals(expected.getOwner().getLogin(), actual.getOwner().getLogin()),
+                () -> assertEquals(expected.getBookstore().getId(), actual.getBookstore().getId()),
+                () -> assertEquals(expected.getBookstore().getName(), actual.getBookstore().getName()),
+                () -> assertEquals(expected.getBookstore().getWeb(), actual.getBookstore().getWeb()),
+                () -> assertEquals(expected.getBookstore().getEmail(), actual.getBookstore().getEmail()),
+                () -> assertEquals(expected.getGenres().size(), actual.getGenres().size()),
+                () -> assertEquals(expected.getAuthors().size(), actual.getAuthors().size())
+        );
+    }
+
+    @Test
+    @DisplayName("toSimpleBookDtoConverter method test")
+    void toSimpleBookDtoConverterTest() {
+        //given
+
+        Book book = new Book.BookBuilder()
+                .setId(id)
+                .setTitle(title)
+                .setCreated(created)
+                .setISBN(ISBN)
+                .setOwner(owner)
+                .setRead(true)
+                .setInReader(true)
+                .setBookstore(bookstore)
+                .setGenres(genres)
+                .build();
+        BookDto expected = new BookDto.BookDtoBuilder()
+                .setId(id)
+                .setTitle(title)
+                .setCreated(created)
+                .setISBN(ISBN)
+                .setOwner(ownerDto)
+                .setRead(true)
+                .setInReader(true)
+                .setBookstore(bookstoreDto)
+                .setGenres(genresDto)
+                .build();
+
+
+        //when
+        BookDto actual = converter.toSimpleBookDto(book);
+
+        //then
+        Assertions.assertNotNull(actual);
+        assertAll("toBookDto assertions",
+                () -> assertEquals(expected.getId(), actual.getId()),
+                () -> assertEquals(expected.getISBN(), actual.getISBN()),
+                () -> assertEquals(expected.getTitle(), actual.getTitle()),
+                () -> assertEquals(expected.getCreated(), actual.getCreated()),
+                () -> assertEquals(expected.getInReader(), actual.getInReader()),
+                () -> assertEquals(expected.getIsRead(), actual.getIsRead()),
+                () -> assertEquals(expected.getOwner().getId(), actual.getOwner().getId()),
+                () -> assertEquals(expected.getOwner().getFirstName(), actual.getOwner().getFirstName()),
+                () -> assertEquals(expected.getOwner().getLastName(), actual.getOwner().getLastName()),
+                () -> assertEquals(expected.getOwner().getRole(), actual.getOwner().getRole()),
+                () -> assertEquals(expected.getOwner().getEmail(), actual.getOwner().getEmail()),
+                () -> assertEquals(expected.getOwner().getLogin(), actual.getOwner().getLogin()),
+                () -> assertEquals(expected.getBookstore().getId(), actual.getBookstore().getId()),
+                () -> assertEquals(expected.getBookstore().getName(), actual.getBookstore().getName()),
+                () -> assertEquals(expected.getBookstore().getWeb(), actual.getBookstore().getWeb()),
+                () -> assertEquals(expected.getBookstore().getEmail(), actual.getBookstore().getEmail()),
+                () -> assertEquals(expected.getGenres().size(), actual.getGenres().size())
+        );
+    }
+
+    @Test
+    @DisplayName("toBookEntity converter method - new Book option")
+    void toBookEntityWithoutDB() {
+
+        Author author = new Author.AuthorBuilder()
+                .setId(id)
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .setBooks(new HashSet<>())
+                .build();
+        AuthorDto authorDto = new AuthorDto.AuthorDtoBuilder()
+                .setId(id)
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .setBooks(new HashSet<>())
+                .build();
+        Set<Author> authors = new HashSet<>();
+        authors.add(author);
+        Set<AuthorDto> authorDtos = new HashSet<>();
+        authorDtos.add(authorDto);
+        Book expected = new Book.BookBuilder()
+                .setId(null)
+                .setTitle(title)
+                .setCreated(created)
+                .setISBN(ISBN)
+                .setOwner(owner)
+                .setRead(true)
+                .setInReader(true)
+                .setBookstore(bookstore)
+                .setGenres(genres)
+                .setAuthors(authors)
+                .build();
+        BookDto dto = new BookDto.BookDtoBuilder()
+                .setId(null)
+                .setTitle(title)
+                .setCreated(created)
+                .setISBN(ISBN)
+                .setOwner(ownerDto)
+                .setRead(true)
+                .setInReader(true)
+                .setBookstore(bookstoreDto)
+                .setGenres(genresDto)
+                .setAuthors(authorDtos)
+                .build();
+        when(userRepository.getOne(anyLong())).thenReturn(owner);
+        when(authorRepository.getOne(anyLong())).thenReturn(author);
+        when(genreRepository.getOne(anyLong())).thenReturn(genre);
+        when(bookstoreRepository.getOne(anyLong())).thenReturn(bookstore);
+        //when
+        Book actual = converter.toBookEntity(dto);
+        actual.setCreated(created);
+
+        //then
+        Assertions.assertNotNull(actual);
+        assertAll("toBookEnttity assertions",
+                () -> assertEquals(expected.getISBN(), actual.getISBN()),
+                () -> assertEquals(expected.getTitle(), actual.getTitle()),
+                () -> assertEquals(expected.getCreated(), actual.getCreated()),
+                () -> assertEquals(expected.getInReader(), actual.getInReader()),
+                () -> assertEquals(expected.getIsRead(), actual.getIsRead()),
+                () -> assertEquals(expected.getOwner().getId(), actual.getOwner().getId()),
+                () -> assertEquals(expected.getOwner().getFirstName(), actual.getOwner().getFirstName()),
+                () -> assertEquals(expected.getOwner().getLastName(), actual.getOwner().getLastName()),
+                () -> assertEquals(expected.getOwner().getRole(), actual.getOwner().getRole()),
+                () -> assertEquals(expected.getOwner().getEmail(), actual.getOwner().getEmail()),
+                () -> assertEquals(expected.getOwner().getLogin(), actual.getOwner().getLogin()),
+                () -> assertEquals(expected.getBookstore().getId(), actual.getBookstore().getId()),
+                () -> assertEquals(expected.getBookstore().getName(), actual.getBookstore().getName()),
+                () -> assertEquals(expected.getBookstore().getWeb(), actual.getBookstore().getWeb()),
+                () -> assertEquals(expected.getBookstore().getEmail(), actual.getBookstore().getEmail()),
+                () -> assertEquals(expected.getGenres().size(), actual.getGenres().size())
+        );
+    }
+
+    @Test
+    @DisplayName("toBookEntity converter method")
+    void toBookEntityWithDB() {
+
+        Author author = new Author.AuthorBuilder()
+                .setId(id)
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .setBooks(new HashSet<>())
+                .build();
+        AuthorDto authorDto = new AuthorDto.AuthorDtoBuilder()
+                .setId(id)
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .setBooks(new HashSet<>())
+                .build();
+        Set<Author> authors = new HashSet<>();
+        authors.add(author);
+        Set<AuthorDto> authorDtos = new HashSet<>();
+        authorDtos.add(authorDto);
+        Book expected = new Book.BookBuilder()
+                .setId(id)
+                .setTitle(title)
+                .setCreated(created)
+                .setISBN(ISBN)
+                .setOwner(owner)
+                .setRead(true)
+                .setInReader(true)
+                .setBookstore(bookstore)
+                .setGenres(genres)
+                .setAuthors(authors)
+                .build();
+        BookDto dto = new BookDto.BookDtoBuilder()
+                .setId(id)
+                .setTitle(title)
+                .setCreated(created)
+                .setISBN(ISBN)
+                .setOwner(ownerDto)
+                .setRead(true)
+                .setInReader(true)
+                .setBookstore(bookstoreDto)
+                .setGenres(genresDto)
+                .setAuthors(authorDtos)
+                .build();
+        Book stub = new Book.BookBuilder()
+                .setId(id)
+                .build();
+        when(userRepository.getOne(anyLong())).thenReturn(owner);
+        when(authorRepository.getOne(anyLong())).thenReturn(author);
+        when(genreRepository.getOne(anyLong())).thenReturn(genre);
+        when(bookstoreRepository.getOne(anyLong())).thenReturn(bookstore);
+        when(bookRepository.getOne(anyLong())).thenReturn(stub);
+        //when
+        Book actual = converter.toBookEntity(dto);
+        actual.setCreated(created);
+
+        //then
+        Assertions.assertNotNull(actual);
+        assertAll("toBookEnttity assertions",
+                () -> assertEquals(expected.getISBN(), actual.getISBN()),
+                () -> assertEquals(expected.getTitle(), actual.getTitle()),
+                () -> assertEquals(expected.getCreated(), actual.getCreated()),
+                () -> assertEquals(expected.getInReader(), actual.getInReader()),
+                () -> assertEquals(expected.getIsRead(), actual.getIsRead()),
+                () -> assertEquals(expected.getOwner().getId(), actual.getOwner().getId()),
+                () -> assertEquals(expected.getOwner().getFirstName(), actual.getOwner().getFirstName()),
+                () -> assertEquals(expected.getOwner().getLastName(), actual.getOwner().getLastName()),
+                () -> assertEquals(expected.getOwner().getRole(), actual.getOwner().getRole()),
+                () -> assertEquals(expected.getOwner().getEmail(), actual.getOwner().getEmail()),
+                () -> assertEquals(expected.getOwner().getLogin(), actual.getOwner().getLogin()),
+                () -> assertEquals(expected.getBookstore().getId(), actual.getBookstore().getId()),
+                () -> assertEquals(expected.getBookstore().getName(), actual.getBookstore().getName()),
+                () -> assertEquals(expected.getBookstore().getWeb(), actual.getBookstore().getWeb()),
+                () -> assertEquals(expected.getBookstore().getEmail(), actual.getBookstore().getEmail()),
+                () -> assertEquals(expected.getGenres().size(), actual.getGenres().size())
+        );
+    }
+
+    @Test
+    @DisplayName("toBookEntity throws EntityNotFoundException")
+    void toBookEntityThrowsEntityNotFoundExceptionTest() {
+        //given
+        BookDto stub = new BookDto.BookDtoBuilder()
+                .setId(id)
+                .build();
+
+        when(bookRepository.getOne(anyLong())).thenThrow(EntityNotFoundException.class);
+        assertThrows(EntityNotFoundException.class,
+                () -> converter.toBookEntity(stub)
+        );
+
+    }
 }
