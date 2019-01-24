@@ -17,8 +17,11 @@ import tj.ebm.User.Domain.User;
 import tj.ebm.User.Repository.UserRepository;
 import tj.ebm.User.dto.UserDto;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import javax.persistence.EntityNotFoundException;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class DtoAndEntityUserConverterTest {
@@ -90,12 +93,12 @@ class DtoAndEntityUserConverterTest {
         //then
         assertAll("toUserDto converter test",
                 () -> assertEquals(actual.getId(), result.getId()),
-                () -> assertEquals(actual.getEmail(),result.getEmail()),
-                () -> assertEquals(actual.getLogin(),result.getLogin()),
-                () -> assertEquals(actual.getPassword(),result.getPassword()),
-                () -> assertEquals(actual.getFirstName(),result.getFirstName()),
-                () -> assertEquals(actual.getLastName(),result.getLastName()),
-                () -> assertEquals(actual.getRole(),result.getRole())
+                () -> assertEquals(actual.getEmail(), result.getEmail()),
+                () -> assertEquals(actual.getLogin(), result.getLogin()),
+                () -> assertEquals(actual.getPassword(), result.getPassword()),
+                () -> assertEquals(actual.getFirstName(), result.getFirstName()),
+                () -> assertEquals(actual.getLastName(), result.getLastName()),
+                () -> assertEquals(actual.getRole(), result.getRole())
         );
 
     }
@@ -124,22 +127,21 @@ class DtoAndEntityUserConverterTest {
 
         //when
 
-       User result = converter.toUserEntity(dto);
+        User result = converter.toUserEntity(dto);
         //then
         assertAll("toUserDto converter test",
                 () -> assertEquals(actual.getId(), result.getId()),
-                () -> assertEquals(actual.getEmail(),result.getEmail()),
-                () -> assertEquals(actual.getLogin(),result.getLogin()),
-                () -> assertEquals(actual.getPassword(),result.getPassword()),
-                () -> assertEquals(actual.getFirstName(),result.getFirstName()),
-                () -> assertEquals(actual.getLastName(),result.getLastName()),
-                () -> assertEquals(actual.getRole(),result.getRole())
+                () -> assertEquals(actual.getEmail(), result.getEmail()),
+                () -> assertEquals(actual.getLogin(), result.getLogin()),
+                () -> assertEquals(actual.getPassword(), result.getPassword()),
+                () -> assertEquals(actual.getFirstName(), result.getFirstName()),
+                () -> assertEquals(actual.getLastName(), result.getLastName()),
+                () -> assertEquals(actual.getRole(), result.getRole())
         );
 
 
-
-
     }
+
     @Test
     @Tag("toUserEntityWithDBMock")
     void toUserEntityWithIdAndMockingDB() {
@@ -150,14 +152,13 @@ class DtoAndEntityUserConverterTest {
         dto.setLogin(login);
         dto.setFirstName(firstName);
         dto.setLastName(lastName);
-
         dto.setRole(role);
         dto.setEmail(email);
 
         User stub = new User();
         stub.setId(id);
 
-        Mockito.when(userRepository.getOne(Mockito.anyLong())).thenReturn(stub);
+        when(userRepository.getOne(anyLong())).thenReturn(stub);
 
         User actual = new User();
         actual.setId(id);
@@ -169,22 +170,32 @@ class DtoAndEntityUserConverterTest {
 
         //when
 
-       User result = converter.toUserEntity(dto);
+        User result = converter.toUserEntity(dto);
         //then
 
         Mockito.verify(userRepository, Mockito.times(1)).getOne(id);
 
         assertAll("toUserDto converter test",
                 () -> assertEquals(actual.getId(), result.getId()),
-                () -> assertEquals(actual.getEmail(),result.getEmail()),
-                () -> assertEquals(actual.getLogin(),result.getLogin()),
-                () -> assertEquals(actual.getPassword(),result.getPassword()),
-                () -> assertEquals(actual.getFirstName(),result.getFirstName()),
-                () -> assertEquals(actual.getLastName(),result.getLastName()),
-                () -> assertEquals(actual.getRole(),result.getRole())
+                () -> assertEquals(actual.getEmail(), result.getEmail()),
+                () -> assertEquals(actual.getLogin(), result.getLogin()),
+                () -> assertEquals(actual.getPassword(), result.getPassword()),
+                () -> assertEquals(actual.getFirstName(), result.getFirstName()),
+                () -> assertEquals(actual.getLastName(), result.getLastName()),
+                () -> assertEquals(actual.getRole(), result.getRole())
         );
+    }
 
+    @Test
+    void toUserEntityWhenIdIsNotFoundInDb() {
 
+        //given
+        UserDto stub = new UserDto();
+        stub.setId(id);
+        when(userRepository.getOne(anyLong())).thenThrow(EntityNotFoundException.class);
+
+        //then
+        assertThrows(EntityNotFoundException.class, () -> converter.toUserEntity(stub));
 
 
     }
