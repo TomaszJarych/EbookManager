@@ -2,9 +2,9 @@ package tj.ebm.Commons.ENUM;
 
 public enum UserRole {
 
-	ADMIN,
+    ADMIN,
 
-	USER,
+    USER,
 
-	GUEST
+    GUEST
 }

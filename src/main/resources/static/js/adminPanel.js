@@ -164,7 +164,8 @@ function showAllGenres() {
             }, function (event) {
                 deleteGenreById(event.data.id);
             });
-        };
+        }
+        ;
 
     }).fail(function () {
         alert("Cannot connect to server");
@@ -211,7 +212,7 @@ function showBooksTable() {
                 "<td>" + getAuthors(book.authors) + "</td>" +
                 "<td>" + book.isbn + "</td>" +
                 "<td>" + book.bookstore.name + "</td>" +
-                "<td>" + getName(book.owner)+"</td>" +
+                "<td>" + getName(book.owner) + "</td>" +
                 "<td>" + isRead(book.isRead) + "</td>" +
                 "<td>" + "<button class=\"btn btn-dark active btnIndex \" id=\"markAsRead" + book.id + "\">" + getMarkAsReadButton(book.isRead) + "</button>" + "</td>" +
                 "<td>" + inReader(book.inReader) + "</td>" +
@@ -470,7 +471,6 @@ function showAllUsers() {
                 });
 
 
-
             });
         }
 
@@ -485,5 +485,5 @@ function getName(owner) {
     if (owner === null || owner === undefined) {
         return "NONE";
     }
-    return owner.firstName +" "+owner.lastName;
+    return owner.firstName + " " + owner.lastName;
 }

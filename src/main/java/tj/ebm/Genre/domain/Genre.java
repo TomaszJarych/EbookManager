@@ -1,28 +1,52 @@
 package tj.ebm.Genre.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import lombok.*;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import javax.persistence.*;
 
 @Setter
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "genres")
 public class Genre {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	private String name;
+    private String name;
 
-	private String description;
+    private String description;
+
+    public static class GenreBuilder {
+        private Long id;
+        private String name;
+        private String description;
+
+        public GenreBuilder() {
+        }
+
+        public GenreBuilder setId(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public GenreBuilder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public GenreBuilder setDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Genre build() {
+            return new Genre(id, name, description);
+        }
+    }
+
 
 }

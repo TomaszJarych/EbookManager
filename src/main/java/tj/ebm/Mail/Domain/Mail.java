@@ -1,11 +1,11 @@
 package tj.ebm.Mail.Domain;
 
-import javax.validation.constraints.NotBlank;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.validation.constraints.NotBlank;
 
 @Getter
 @Setter
@@ -13,11 +13,11 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Mail {
 
-	@NotBlank
-	private String reciever;
-	@NotBlank
-	private String subject;
-	@NotBlank
-	private String content;
+    @NotBlank
+    private String reciever;
+    @NotBlank
+    private String subject;
+    @NotBlank
+    private String content;
 
 }

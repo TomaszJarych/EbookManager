@@ -1,49 +1,95 @@
 package tj.ebm.User.Domain;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import tj.ebm.Commons.ENUM.UserRole;
+
+import javax.persistence.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "app_user")
 public class User {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@NonNull
-	private String login;
+    @NonNull
+    private String login;
 
-	@NonNull
-	private String password;
+    @NonNull
+    private String password;
 
-	@NonNull
-	private String firstName;
+    @NonNull
+    private String firstName;
 
-	@NonNull
-	private String lastName;
+    @NonNull
+    private String lastName;
 
-	@NonNull
-	@Enumerated(EnumType.STRING)
-	private UserRole role;
+    @NonNull
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
 
-	@NonNull
-	private String email;
+    @NonNull
+    private String email;
 
+
+    public static class UserBuilder {
+        private Long id;
+        private String login;
+        private String password;
+        private String firstName;
+        private String lastName;
+        private UserRole role;
+        private String email;
+
+        public UserBuilder() {
+        }
+
+        public UserBuilder id(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public UserBuilder login(String login) {
+            this.login = login;
+            return this;
+        }
+
+        public UserBuilder password(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public UserBuilder firstName(String firstName) {
+            this.firstName = firstName;
+            return this;
+        }
+
+        public UserBuilder lastName(String lastName) {
+            this.lastName = lastName;
+            return this;
+        }
+
+        public UserBuilder role(UserRole role) {
+            this.role = role;
+            return this;
+        }
+
+        public UserBuilder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public User build() {
+            return new User(id, login, password, firstName, lastName, role, email);
+        }
+
+        public String toString() {
+            return "User.UserBuilder(id=" + this.id + ", login=" + this.login + ", password=" + this.password + ", firstName=" + this.firstName + ", lastName=" + this.lastName + ", role=" + this.role + ", email=" + this.email + ")";
+        }
+    }
 }

@@ -8,7 +8,6 @@ $(document).ready(function () {
     const divForm = $("#divForm");
 
 
-
     selectMenu.on("load", showAllUsers())
     button.on("click", function () {
         inputLogin.val(selectMenu.val());
@@ -56,8 +55,8 @@ $(document).ready(function () {
         }).done(function (json) {
 
             if (json["data"] !== null && json["message"] === "OK") {
-                sessionStorage.setItem("loggedUserId",json["data"].id )
-                sessionStorage.setItem("loggedUserLogin",json["data"].login)
+                sessionStorage.setItem("loggedUserId", json["data"].id)
+                sessionStorage.setItem("loggedUserLogin", json["data"].login)
                 location.href = "views/homePage.html";
             } else {
                 alert("Invalid password");
@@ -67,8 +66,6 @@ $(document).ready(function () {
             alert("Cannot connect to server");
         })
     }
-
-
 
 
 });

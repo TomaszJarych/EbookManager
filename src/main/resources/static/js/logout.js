@@ -4,9 +4,9 @@ $(document).ready(function () {
         type: "GET",
         dataType: "json"
     }).done(function (json) {
-           console.log(json);
-           alert("User has been logged out");
-           location.href = "../index.html";
+        console.log(json);
+        alert("User has been logged out");
+        location.href = "../index.html";
 
     }).fail(function () {
         alert("Cannot connect to server");
@@ -14,5 +14,5 @@ $(document).ready(function () {
 
 
     });
-    
+
 });

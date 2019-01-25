@@ -1,30 +1,58 @@
 package tj.ebm.Bookstore.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import lombok.*;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import javax.persistence.*;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "book_store")
 public class Bookstore {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	private String name;
+    private String name;
 
-	private String email;
+    private String email;
 
-	private String web;
+    private String web;
 
+    public static class BookstoreEntityBuilder {
+        private Long id;
+        private String name;
+        private String email;
+        private String web;
+
+        public BookstoreEntityBuilder() {
+        }
+
+        public BookstoreEntityBuilder setId(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public BookstoreEntityBuilder setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public BookstoreEntityBuilder setEmail(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public BookstoreEntityBuilder setWeb(String web) {
+            this.web = web;
+            return this;
+        }
+
+        public Bookstore build() {
+            return new Bookstore(id, name, email, web);
+        }
+    }
 }
