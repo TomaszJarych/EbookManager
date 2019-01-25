@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import tj.ebm.Commons.ErrorsUtil.ErrorsUtil;
-import tj.ebm.Commons.Result.Result;
-import tj.ebm.Commons.SessionStorageData.SessionStorageData;
 import tj.ebm.Mail.Domain.Mail;
 import tj.ebm.Mail.EmailSender;
+import tj.ebm.commons.ErrorsUtil.ErrorsUtil;
+import tj.ebm.commons.Result.Result;
+import tj.ebm.commons.SessionStorageData.SessionStorageData;
 
 import javax.validation.Valid;
 

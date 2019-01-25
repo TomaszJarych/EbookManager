@@ -1,4 +1,4 @@
-package tj.ebm.Commons.Validator;
+package tj.ebm.commons.Validator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

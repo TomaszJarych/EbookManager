@@ -1,4 +1,4 @@
-package tj.ebm.Commons.ErrorsUtil;
+package tj.ebm.commons.ErrorsUtil;
 
 import org.springframework.validation.FieldError;
 

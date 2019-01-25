@@ -1,7 +1,7 @@
 package tj.ebm.User.Domain;
 
 import lombok.*;
-import tj.ebm.Commons.ENUM.UserRole;
+import tj.ebm.commons.ENUM.UserRole;
 
 import javax.persistence.*;
 

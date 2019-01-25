@@ -1,4 +1,4 @@
-package tj.ebm.Commons.DtoAndEntityConverter;
+package tj.ebm.commons.DtoAndEntityConverter;
 
 
 import org.junit.jupiter.api.Assertions;
@@ -17,13 +17,13 @@ import tj.ebm.Book.dto.BookDto;
 import tj.ebm.Bookstore.Repository.BookstoreRepository;
 import tj.ebm.Bookstore.domain.Bookstore;
 import tj.ebm.Bookstore.dto.BookstoreDto;
-import tj.ebm.Commons.ENUM.UserRole;
 import tj.ebm.Genre.Repository.GenreRepository;
 import tj.ebm.Genre.domain.Genre;
 import tj.ebm.Genre.dto.GenreDto;
 import tj.ebm.User.Domain.User;
 import tj.ebm.User.Repository.UserRepository;
 import tj.ebm.User.dto.UserDto;
+import tj.ebm.commons.ENUM.UserRole;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;

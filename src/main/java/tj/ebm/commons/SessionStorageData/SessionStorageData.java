@@ -1,4 +1,4 @@
-package tj.ebm.Commons.SessionStorageData;
+package tj.ebm.commons.SessionStorageData;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

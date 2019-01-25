@@ -1,4 +1,4 @@
-package tj.ebm.Commons.ServiceInterface;
+package tj.ebm.commons.ServiceInterface;
 
 import java.io.Serializable;
 import java.util.List;

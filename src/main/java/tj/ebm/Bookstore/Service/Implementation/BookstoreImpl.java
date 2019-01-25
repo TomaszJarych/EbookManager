@@ -6,7 +6,7 @@ import tj.ebm.Bookstore.Repository.BookstoreRepository;
 import tj.ebm.Bookstore.Service.BookstoreService;
 import tj.ebm.Bookstore.domain.Bookstore;
 import tj.ebm.Bookstore.dto.BookstoreDto;
-import tj.ebm.Commons.DtoAndEntityConverter.DtoAndEntityConverter;
+import tj.ebm.commons.DtoAndEntityConverter.DtoAndEntityConverter;
 
 import java.util.List;
 import java.util.Objects;

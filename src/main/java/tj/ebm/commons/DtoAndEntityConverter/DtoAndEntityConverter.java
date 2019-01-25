@@ -1,4 +1,4 @@
-package tj.ebm.Commons.DtoAndEntityConverter;
+package tj.ebm.commons.DtoAndEntityConverter;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;

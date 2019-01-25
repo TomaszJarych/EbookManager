@@ -5,8 +5,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import tj.ebm.Author.Service.AuthorService;
 import tj.ebm.Author.dto.AuthorDto;
-import tj.ebm.Commons.ErrorsUtil.ErrorsUtil;
-import tj.ebm.Commons.Result.Result;
+import tj.ebm.commons.ErrorsUtil.ErrorsUtil;
+import tj.ebm.commons.Result.Result;
 
 import javax.validation.Valid;
 

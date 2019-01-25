@@ -1,4 +1,4 @@
-package tj.ebm.Commons.DtoAndEntityConverter;
+package tj.ebm.commons.DtoAndEntityConverter;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
@@ -11,11 +11,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import tj.ebm.Author.Repository.AuthorRepository;
 import tj.ebm.Book.Repository.BookRepository;
 import tj.ebm.Bookstore.Repository.BookstoreRepository;
-import tj.ebm.Commons.ENUM.UserRole;
 import tj.ebm.Genre.Repository.GenreRepository;
 import tj.ebm.User.Domain.User;
 import tj.ebm.User.Repository.UserRepository;
 import tj.ebm.User.dto.UserDto;
+import tj.ebm.commons.ENUM.UserRole;
 
 import javax.persistence.EntityNotFoundException;
 

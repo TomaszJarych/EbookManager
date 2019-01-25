@@ -1,4 +1,4 @@
-package tj.ebm.Commons.ENUM;
+package tj.ebm.commons.ENUM;
 
 public enum UserRole {
 

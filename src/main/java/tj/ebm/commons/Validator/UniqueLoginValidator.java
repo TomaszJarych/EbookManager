@@ -1,4 +1,4 @@
-package tj.ebm.Commons.Validator;
+package tj.ebm.commons.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import tj.ebm.User.Domain.User;
