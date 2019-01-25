@@ -6,7 +6,7 @@ import tj.ebm.Author.Repository.AuthorRepository;
 import tj.ebm.Author.Service.AuthorService;
 import tj.ebm.Author.domain.Author;
 import tj.ebm.Author.dto.AuthorDto;
-import tj.ebm.Commons.DtoAndEntityConverter.DtoAndEntityConverter;
+import tj.ebm.commons.DtoAndEntityConverter.DtoAndEntityConverter;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;

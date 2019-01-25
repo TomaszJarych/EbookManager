@@ -3,10 +3,10 @@ package tj.ebm.Genre.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import tj.ebm.Commons.ErrorsUtil.ErrorsUtil;
-import tj.ebm.Commons.Result.Result;
 import tj.ebm.Genre.Service.GenreService;
 import tj.ebm.Genre.dto.GenreDto;
+import tj.ebm.commons.ErrorsUtil.ErrorsUtil;
+import tj.ebm.commons.Result.Result;
 
 import javax.validation.Valid;
 

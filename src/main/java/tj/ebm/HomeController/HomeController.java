@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import tj.ebm.Commons.Result.Result;
-import tj.ebm.Commons.SessionStorageData.SessionStorageData;
 import tj.ebm.User.dto.UserDto;
+import tj.ebm.commons.Result.Result;
+import tj.ebm.commons.SessionStorageData.SessionStorageData;
 
 @RestController
 @RequestMapping("/")

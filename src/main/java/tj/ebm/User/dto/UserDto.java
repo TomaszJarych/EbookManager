@@ -1,8 +1,8 @@
 package tj.ebm.User.dto;
 
 import lombok.*;
-import tj.ebm.Commons.ENUM.UserRole;
-import tj.ebm.Commons.Validator.UniqueLogin;
+import tj.ebm.commons.ENUM.UserRole;
+import tj.ebm.commons.Validator.UniqueLogin;
 
 import javax.validation.constraints.NotBlank;
 

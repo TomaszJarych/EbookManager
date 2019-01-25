@@ -1,4 +1,4 @@
-package tj.ebm.Commons.Result;
+package tj.ebm.commons.Result;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

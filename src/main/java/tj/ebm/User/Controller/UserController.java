@@ -3,12 +3,12 @@ package tj.ebm.User.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import tj.ebm.Commons.ENUM.UserRole;
-import tj.ebm.Commons.ErrorsUtil.ErrorsUtil;
-import tj.ebm.Commons.Result.Result;
-import tj.ebm.Commons.SessionStorageData.SessionStorageData;
 import tj.ebm.User.Service.UserService;
 import tj.ebm.User.dto.UserDto;
+import tj.ebm.commons.ENUM.UserRole;
+import tj.ebm.commons.ErrorsUtil.ErrorsUtil;
+import tj.ebm.commons.Result.Result;
+import tj.ebm.commons.SessionStorageData.SessionStorageData;
 
 import javax.validation.Valid;
 import java.util.stream.Collectors;

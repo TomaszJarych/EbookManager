@@ -1,10 +1,10 @@
-package tj.ebm.Commons.ExceptionHandler;
+package tj.ebm.commons.ExceptionHandler;
 
 import org.springframework.http.MediaType;
 import org.springframework.mail.MailException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import tj.ebm.Commons.Result.Result;
+import tj.ebm.commons.Result.Result;
 
 import javax.persistence.EntityNotFoundException;
 

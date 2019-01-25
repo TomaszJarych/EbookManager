@@ -1,4 +1,4 @@
-package tj.ebm.Commons.DtoAndEntityConverter;
+package tj.ebm.commons.DtoAndEntityConverter;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
