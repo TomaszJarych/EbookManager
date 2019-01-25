@@ -1,0 +1,49 @@
+version: "3.4"
+
+services:
+  db-mysql:
+    image: mysql:5
+    environment:
+    - MYSQL_ROOT_PASSWORD=tjpass
+    - MYSQL_DATABASE=ebookmanager
+    - MYSQL_USER=tj
+    - MYSQL_PASSWORD=tjpass
+    volumes:
+    - db-data:/var/lib/mysql
+
+  ebookmanager:
+    build: .
+    image: ebookmanager
+    environment:
+    - DATABASE_HOST=db-mysql
+    - DATABASE_USER=root
+    - DATABASE_PASSWORD=tjpass
+    - DATABASE_NAME=ebookmanager
+    - DATABASE_PORT=3306
+    depends_on:
+    - db-mysql
+    ports:
+    - 8080:8080
+    restart: always
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost:8088/bm/actuator/health"]
+    #   interval: 60s
+    #   timeout: 10s
+    #   retries: 3
+  adminer:
+    image: adminer:4.7
+    depends_on:
+    - db-mysql
+    restart: always
+    ports:
+    - 8888:8080
+  httpd-ebookmanager:
+    build:
+      context: .
+      dockerfile: Dockerfile-httpd
+    image: httpd
+    ports:
+    - 7070:80
+
+volumes:
+  db-data:
