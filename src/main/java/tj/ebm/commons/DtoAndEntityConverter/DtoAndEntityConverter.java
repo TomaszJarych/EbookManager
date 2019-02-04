@@ -24,7 +24,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
-public class DtoAndEntityConverter {
+public class DtoAndEntityConverter implements DtoConverter {
 
     private final UserRepository userRepository;
     private final BookstoreRepository bookstoreRepository;
@@ -44,6 +44,7 @@ public class DtoAndEntityConverter {
         this.bookRepository = bookRepository;
     }
 
+    @Override
     public UserDto toUserDto(User user) {
         UserDto dto = new UserDto();
 
@@ -57,6 +58,7 @@ public class DtoAndEntityConverter {
         return dto;
     }
 
+    @Override
     public User toUserEntity(UserDto dto) throws EntityNotFoundException {
         User user;
 
@@ -82,6 +84,7 @@ public class DtoAndEntityConverter {
         return user;
     }
 
+    @Override
     public BookstoreDto toBookstoreDto(Bookstore store) {
         BookstoreDto dto = new BookstoreDto();
 
@@ -93,6 +96,7 @@ public class DtoAndEntityConverter {
         return dto;
     }
 
+    @Override
     public Bookstore toBookstoreEntity(BookstoreDto dto)
             throws EntityNotFoundException {
         Bookstore store;
@@ -111,6 +115,7 @@ public class DtoAndEntityConverter {
         return store;
     }
 
+    @Override
     public GenreDto toGenreDto(Genre genre) {
         GenreDto dto = new GenreDto();
 
@@ -121,6 +126,7 @@ public class DtoAndEntityConverter {
         return dto;
     }
 
+    @Override
     public Genre toGenreEntity(GenreDto dto) throws EntityNotFoundException {
         Genre genre;
         if (Objects.nonNull(dto.getId())) {
@@ -137,6 +143,7 @@ public class DtoAndEntityConverter {
         return genre;
     }
 
+    @Override
     public AuthorDto toAuthorDto(Author author) {
         AuthorDto dto = new AuthorDto();
 
@@ -154,6 +161,7 @@ public class DtoAndEntityConverter {
         return dto;
     }
 
+    @Override
     public AuthorDto toAuthorSimpleDto(Author author) {
         AuthorDto dto = new AuthorDto();
 
@@ -164,6 +172,7 @@ public class DtoAndEntityConverter {
         return dto;
     }
 
+    @Override
     public Author toAuthorEntity(AuthorDto dto) throws EntityNotFoundException {
         Author author;
         if (Objects.nonNull(dto.getId())) {
@@ -179,6 +188,7 @@ public class DtoAndEntityConverter {
         return author;
     }
 
+    @Override
     public BookDto toBookDto(Book book) {
         BookDto dto = new BookDto();
 
@@ -213,6 +223,7 @@ public class DtoAndEntityConverter {
         return dto;
     }
 
+    @Override
     public BookDto toSimpleBookDto(Book book) {
         BookDto dto = new BookDto();
 
@@ -241,6 +252,7 @@ public class DtoAndEntityConverter {
         return dto;
     }
 
+    @Override
     public Book toBookEntity(BookDto dto) throws EntityNotFoundException {
         Book book;
         if (Objects.nonNull(dto.getId())) {
