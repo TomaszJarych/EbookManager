@@ -36,4 +36,16 @@ public class PointcutsDeclaration {
     @Pointcut("execution(* tj.ebm.*.*.*.*.findById(..))")
     public void findByIdMethods() {
     }
+
+    @Pointcut("authorServiceMethods() || bookServiceMethods() ||bookstoreServiceMethods() ||genreServiceMethods() || userServiceMethods()")
+    public void allServiceMethods() {
+    }
+
+    @Pointcut("saveOrUpdateMethod() || deleteMethod() || findByIdMethods()")
+    public void crudMethods() {
+    }
+
+    @Pointcut("allServiceMethods() && crudMethods()")
+    public void allCrudMethodsFromServicesThatThrowsException() {
+    }
 }
